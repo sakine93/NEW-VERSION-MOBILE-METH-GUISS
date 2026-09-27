@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>FACTURE STOCK: {{reffacture}}</ion-title>
+  
+  </ion-toolbar>
+  <ion-item lines="none">
+
+		
+    <ion-label>
+      
+        <ion-item  style="display: none;">
+        <ion-label position="floating" >  </ion-label>
+        <ion-input [(ngModel)]="codeacces"></ion-input>
+        <ion-input [(ngModel)]="item_location"></ion-input>
+      </ion-item>
+    </ion-label>
+
+    <ion-input style="display: none;" [(ngModel)]="receiving_id" disabled="true">FACTURE N0 :</ion-input>
+</ion-item>
+
+
+
+
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  
+  <ion-item-sliding *ngFor="let customer of customers">
+     
+      
+
+
+    <ion-item-divider style="background-color: #03224c;color: #fcb800;">
+      {{customer.name}} - ({{customer.type_or}})
+    </ion-item-divider>
+    <ion-item style="background-color: #fcb800">
+      <img  style="width: 40px;border-radius: 50%;" *ngIf="customer.pic_filename!=''"   class="main-options__image" src="https://mobile.bijouteriess.com/server_api/uploads/{{customer.pic_filename}}" alt="PAS">
+      <ion-label>
+        <h2 style="font-weight: bold;color: #000;">CAT : {{customer.category}}</h2>
+        <h2 style="font-weight: bold;color: #000;">REF : {{customer.item_id}}</h2>
+        <h2 style="font-weight: bold;color: #000;"  *ngIf="customer.item_unit_price==0">PRIX : <b  *ngIf="customer.item_unit_price==0" id="text"> {{customer.item_unit_price | number : seperatorWitSpace}}</b> FCFA</h2>
+        <h2 style="font-weight: bold;color: #000;" *ngIf="customer.item_unit_price>0">PRIX : <b  *ngIf="customer.item_unit_price>0"> {{customer.item_unit_price | number : seperatorWitSpace}}</b> FCFA</h2>
+        <p style="font-weight:bold;color: #000;">Poids :  {{customer.poids}} ( g )</p>
+      </ion-label>
+    </ion-item>
+ 
+  
+
+  </ion-item-sliding>
+
+
+
+</ion-content>
+
+<ion-footer class="footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col style="text-align: center;float: right;"><ion-button (click)="dismissModal()"   expand="block" shape="round" color="danger"><ion-icon name="clipboard"> </ion-icon> Retour  </ion-button></ion-col>
+
+    </ion-row>
+      </ion-grid>
+    </ion-footer>

@@ -1,0 +1,120 @@
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button>
+				<ion-icon name="apps"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+
+		<ion-buttons slot="end">
+			<ion-button class="bordered" fill="solid" color="light">
+				<ion-icon color="custom" name="notifications"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+
+	<ion-item lines="none">
+
+		<ion-avatar slot="start">
+			<img src="../../assets/icon/avataaars.png">
+    </ion-avatar>
+			<ion-label>
+				<p>Bienvenue,</p>
+				<h3>{{full_name}}</h3>
+        <h3>  <b> {{totalpts  | number : '1.0-0'}} Pts => {{totalkhaliss | number :'1.0-0'  }} FCFA</b></h3>
+        <ion-item  style="display: none;">
+          <ion-label position="floating" >  </ion-label>
+          <ion-input [(ngModel)]="codeacces"></ion-input>
+          <ion-input [(ngModel)]="item_location"></ion-input>
+        </ion-item>
+			</ion-label>
+
+	</ion-item>
+
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="slides ion-margin-bottom">
+    <ion-slides [options]="slidesOptions">
+      <ion-slide>
+        <ion-card>
+          <ion-card-header>
+            <div class="main">
+            
+              <div class="result__col-qr">
+               
+                
+
+                <qrcode  [qrdata]="phone_number" [size]="256"  [level]="'M'" (click)="addCustomer()"></qrcode>
+              
+              </div>
+            </div>
+          
+          </ion-card-header>
+        </ion-card>
+      </ion-slide>
+
+    </ion-slides>
+  </div>
+
+  <div class="container">
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="datevente" placeholder="Cherche date"></ion-input><ion-icon name="checkmark-circle-outline" (click)="chercherdate()"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="dateventefin" placeholder="Cherche date"></ion-input><ion-icon name="checkmark-circle-outline" (click)="chercherdatefin()"></ion-icon>
+    </ion-item>
+    <b>choisir date pour  calculer</b>
+    
+
+    <ion-item lines="none"  *ngFor="let vente of ventes" style="display: none;">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="2">
+            <ion-button color="light" fill="clear">
+              <ion-icon slot="icon-only" name="film"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="12">
+            <ion-label>
+              <h4><b style="color: black;"> Titre Or : {{vente.type_or}}</b></h4>
+              <h4><b style="color: black;"> Model : {{vente.modele}}</b></h4>
+              <h4>Total Vente  :{{vente.totalvente | number :seperatorWitSpace}}</h4>
+              <h4>Total poids  :{{vente.totalpoids | number :seperatorWitSpace}} (g)</h4>
+							<h4  *ngIf="vente.benef>0"> <b style="color: yellow;"> {{vente.benef |number : '1.0-0'}} Pts gagné</b> </h4>
+              <h4  *ngIf="vente.benef<0"> <b style="color: red;"> {{vente.benef |number : '1.0-0'}} Pts Perdus</b> </h4>
+							<h6>   fait le {{vente.sale_time}}</h6>
+              <h6>   Num Vente {{vente.sale_id}}</h6>
+              <h6>   Type :  {{vente.type_annulation}}</h6>
+						</ion-label>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button color="light" fill="clear">
+              <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+
+  </div>
+
+</ion-content>
+<ion-footer class="footer">
+  
+  <ion-grid>
+    <ion-row>
+   <ion-col style="text-align: center"><ion-button (click)="menuApp()"    expand="block" shape="round" color="danger"><ion-icon name="clipboard"> </ion-icon> RETOUR ACCEUIL </ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>

@@ -1,0 +1,34 @@
+.content-bg {
+    --background: linear-gradient(180deg, #fff7e6 0%, #ffffff 55%);
+  }
+  
+  .toolbar-soft {
+    --background: #ffffffcc;
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  
+  .card-pane {
+    margin: 14px;
+    border-radius: 14px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.06);
+  }
+  
+  .actions {
+    margin-top: 14px;
+    display: grid;
+    gap: 10px;
+  }
+  
+  .hint {
+    display: block;
+    margin-top: 8px;
+  }
+  
+  .footer-actions {
+    position: sticky;
+    bottom: 0;
+    padding: 12px 14px;
+    background: linear-gradient(180deg, transparent, #fff 30%);
+    border-top: 1px solid #eee;
+  }

@@ -1,0 +1,166 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+  
+  </ion-toolbar>
+  <ion-item lines="none">
+
+    <ion-buttons slot="start">
+      <ion-button *ngIf="showCamera" (click)="turnOnTorch()">
+        <ion-icon name="flash"  style="font-size:30pt"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+   
+    <ion-buttons slot="primary">
+      <ion-back-button text="" icon="" color="tertiary" fill="outline"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closeCamera()">
+        <ion-icon name="close"  style="font-size:40pt"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-card  *ngIf="nbrepiece>0" style="background-color: #fff;width: 100%;">
+      <ion-card-header>
+        <ion-card-subtitle><b style="font-weight: bold;font-size: 13pt;color: red;">{{nbrepoids | number : seperatorWitSpace}} (g)</b></ion-card-subtitle>
+        <ion-card-subtitle><b style="font-weight: bold;font-size: 13pt;color: red;">{{nbrepiece | number : seperatorWitSpace}} (pieces)</b></ion-card-subtitle>
+       
+      </ion-card-header>
+    
+    </ion-card>
+			
+
+	</ion-item>
+</ion-header>
+
+
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+   
+  <div>
+   
+    <br>
+   
+    
+  
+    <ion-button expand="block"  style="display: none;">
+      <ion-icon slot="start" name="qr-scanner"></ion-icon>
+      Verifier Code
+    </ion-button>
+    <ion-item style="display: none;">
+      <ion-label position="floating" >  </ion-label>
+      <ion-input [(ngModel)]="codeacces">{{codeacces}}</ion-input>
+      <ion-input [(ngModel)]="item_location"></ion-input>
+    </ion-item>
+    
+    
+    <ion-item style="display: none;">
+      <ion-label position="fixed"> Description </ion-label>
+      <ion-input type="text" [(ngModel)]="comment">{{textScanned}}</ion-input>
+    </ion-item>
+  
+    <ion-list>
+      <ion-item-sliding *ngFor="let customer of customers">
+        
+      
+        <ion-item style="display: none;">
+         <ion-label>Poids trouve</ion-label>
+          <ion-input type="number" [(ngModel)]="poids">{{customer.poids}}</ion-input>
+        </ion-item>
+       
+        <ion-item style="display: none;"> 
+          <ion-label>quantity</ion-label>
+          <ion-input type="text" [(ngModel)]="quantity">{{customer.quantity}}</ion-input>
+        </ion-item>
+        <ion-item style="display: none;"> 
+          <ion-label>prix vente g</ion-label>
+          <ion-input type="text" [(ngModel)]="prix_vente_g">{{customer.prix_vente_g}}</ion-input>
+        </ion-item>
+
+        <ion-item style="display: none;"> 
+          <ion-label>Location Id</ion-label>
+          <ion-input type="text" [(ngModel)]="location_id">{{customer.location_id}}</ion-input>
+        </ion-item>
+  
+       
+      </ion-item-sliding>
+    </ion-list>
+  
+    
+  
+    <ion-button  style="display: none;" expand="block" padding color="tertiary" *ngIf="!id" (click)="createdProses()" fill="outline">Valider</ion-button>
+    <ion-button expand="block" padding color="tertiary" *ngIf="id>=1" (click)="updateProses()" fill="outline">Modifier</ion-button>
+  
+  </div>
+
+  
+
+  <ion-card *ngIf="nbrepiece==0"  style="background-color: #fff;margin-top: 20px;" >
+       
+    <ion-card-content>
+      <h2 style="text-align: center;color: #000;font-weight: bold;"><ion-icon name="cart" size="large"></ion-icon>  Aucun bijoux en transfert ?</h2> 
+    </ion-card-content>
+  </ion-card>
+  <ion-item-sliding *ngFor="let customer of customers">
+  
+  
+
+    <ion-item-options side="start">
+      <ion-item-option style="margin-top: 35px;font-weight: bold;" color="danger" (click)="delCustomers(customer.num_sale)">Annuler</ion-item-option>
+    </ion-item-options>
+    <ion-item-divider color="danger">
+      <ion-label style="font-weight: bold;font-size: 8pt;">
+        <ion-icon name="pricetag" size="small"></ion-icon> {{customer.name}} - ({{customer.type_or}}) =><b style="font-size: 12pt;" *ngIf="customer.location_id==7" >Stock Boutique</b><b style="font-size: 12pt;" *ngIf="customer.location_id==10" >Stock adji</b><b style="font-size: 12pt;" *ngIf="customer.location_id==35" >Ahmeth Sy</b><b style="font-size: 12pt;" *ngIf="customer.location_id==18" >Beukheury</b><b style="font-size: 12pt;" *ngIf="customer.location_id==25" >Dame Diallo</b><b style="font-size: 12pt;" *ngIf="customer.location_id==28" >Stock Issa </b><b style="font-size: 12pt;" *ngIf="customer.location_id==23" >Stock Mamadou</b><b style="font-size: 12pt;" *ngIf="customer.location_id==26" >Modou Sylla</b><b style="font-size: 12pt;" *ngIf="customer.location_id==27" >Saliou Niang</b><b style="font-size: 12pt;" *ngIf="customer.location_id==8" >Serigne Macke</b><b style="font-size: 12pt;" *ngIf="customer.location_id==24" >Pape Seye</b>
+     
+      </ion-label>
+    </ion-item-divider>
+    <ion-item>
+     
+      <ion-label style="font-weight: bold;font-size: 9pt;">
+       REF BIJOUX : {{customer.item_id}} 
+        <br>
+        Poids en stock : {{customer.poids}} ( g ) 
+        <br>
+        Nbre  Piece  : {{customer.quantity  | number : seperatorWitSpace}} ( p ) <br>
+    </ion-label>
+    </ion-item>
+
+    <ion-item-options side="end">
+
+      <ion-item-option style="display: none;" color="secondary" (click)="showCustomer(customer.num_sale,customer.name,customer.item_unit_price)">Voir</ion-item-option>
+   
+      <ion-item-option *ngIf="customer.systeme_vente=='barcode' " (click)="updateCustomer(customer.num_sale,customer.name,customer.item_unit_price,customer.prix_du_g,customer.poids,customer.location_id)" style="margin-top: 35px;font-weight: bold;" color="success">Prix de vente</ion-item-option>
+      <ion-item-option  *ngIf="customer.systeme_vente=='poids'"  (click)="updateCustomerpoids(customer.num_sale,customer.name,customer.item_unit_price,customer.prix_du_g,customer.location_id)" style="margin-top: 35px;font-weight: bold;" color="success">Prix et Poids</ion-item-option>
+
+    </ion-item-options>
+  </ion-item-sliding>
+  <ion-grid  *ngIf="nbrepiece>0">
+    <ion-row  class="roundedInput">
+    
+    <ion-col style="text-align: center"><ion-button  (click)="transfererliste()"   expand="block"  color="primary"><ion-icon name="refresh"> </ion-icon> Transferer la liste  </ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  
+  
+  
+
+</ion-content>
+<ion-footer class="footer">
+  
+  <ion-grid>
+    <ion-row  class="roundedInput">
+      <ion-col><ion-input style="background-color: rgb(187, 90, 52);color: whitesmoke;width: 100%;margin-top: 7px;height:42px;font-weight: bold;" placeholder="REF PROD :" type="tel"  [(ngModel)]="item_id">{{ textScanned }}</ion-input></ion-col> 
+    <ion-col style="text-align: center"><ion-button  (click)="qrcodeexist(item_id)"   expand="block"  color="danger"><ion-icon name="add-circle"> </ion-icon> Ajouter </ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>

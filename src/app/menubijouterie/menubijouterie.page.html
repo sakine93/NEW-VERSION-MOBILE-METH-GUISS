@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mon Menu</ion-title>
+  </ion-toolbar>
+
+  <ion-input style="background-color: #fff;color: black;display: none;"  [(ngModel)]="username"></ion-input>
+</ion-header>
+
+<ion-content>
+  <ng-container>
+    <div class="main-options">
+        <div  class="main-options__btn main-options__btn--volver">
+          <span style="float: left;"><ion-badge color="danger">BSS</ion-badge></span>
+            <img   class="main-options__image" src="/assets/icon/sachet.png"  (click)="menuVente()">
+            <p class="main-options__text" i18n="@@leaveHome"><ion-badge>Vente Bijoux</ion-badge></p>
+          </div>
+          <div  class="main-options__btn main-options__btn--volver">
+            <span style="float: left;"><ion-badge color="danger">BSS</ion-badge></span>
+              <img   class="main-options__image" src="/assets/icon/sachet.png"  (click)="depot()">
+              <p class="main-options__text" i18n="@@leaveHome"><ion-badge>Depot D'argent</ion-badge></p>
+            </div>
+
+          
+          <div class="main-options__btn main-options__btn--volver">
+            <span style="float: left;"><ion-badge color="danger">BSS</ion-badge></span>
+            <img class="main-options__image" src="/assets/scan.png" (click)="barcodes()">
+            <p class="main-options__text" i18n="@@leaveHome"><ion-badge>Barcode Stock</ion-badge></p>
+          </div>
+          
+        <div  class="main-options__btn main-options__btn--volver">
+          <span style="float: left;"><ion-badge color="danger">BSS</ion-badge></span>
+            <img   class="main-options__image" src="/assets/icon/sachet.png" (click)="menuAchat()" >
+            <p class="main-options__text" i18n="@@leaveHome"><ion-badge>Achat Or</ion-badge> </p>
+        </div>
+        <div  class="main-options__btn main-options__btn--volver">
+          <span style="float: left;"><ion-badge color="danger">BSS</ion-badge></span>
+            <img   class="main-options__image" src="/assets/icon/reports.jpeg" (click)="historiquevente()" >
+            <p class="main-options__text" i18n="@@leaveHome"><ion-badge>Rapports de Ventes </ion-badge> </p>
+        </div>
+       
+        <div  class="main-options__btn main-options__btn--volver">
+          <span style="float: left;"><ion-badge color="danger">BSS</ion-badge></span>
+            <img   class="main-options__image" src="/assets/icon/reportsachats.jpg" (click)="historiqueachat()" >
+            <p class="main-options__text" i18n="@@leaveHome"><ion-badge>Rapports des Achats </ion-badge> </p>
+        </div>
+       
+     
+       
+        <div  class="main-options__btn main-options__btn--volver" >
+          <span style="float: left;"><ion-badge color="danger">BSS</ion-badge></span>
+            <img   class="main-options__image" src="/assets/icon/sachet.png" (click)="inventaire()"  >
+            <p class="main-options__text" i18n="@@leaveHome"><ion-badge>Inventaire </ion-badge> </p>
+            
+        </div>
+        
+      </div>
+    </ng-container>
+ 
+
+   
+   
+
+    <ion-button   (click)="miseajour()"  expand="full"  color="success"><ion-icon name="clipboard" slot="start"> </ion-icon><b style="color: black;"><ion-badge>0</ion-badge> Mise a jour </b></ion-button>
+  <ion-button   (click)="changepassword()"  expand="full"  color="success"><ion-icon name="clipboard" slot="start"> </ion-icon><b style="color: black;"> Changer de Mot de passe</b></ion-button>
+  <ion-button   (click)="proseslogout()" expand="full"  color="danger"><ion-icon name="log-out" slot="start"> </ion-icon> Se Deconnecter</ion-button>
+
+  
+  
+  
+</ion-content>
+
+
+<ion-footer class="footer">
+  
+  <ion-grid>
+    <ion-row>
+   <ion-col style="text-align: center"><ion-button (click)="menuApp()"    expand="block" shape="round" color="danger"><ion-icon name="clipboard"> </ion-icon> RETOUR ACCEUIL </ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>

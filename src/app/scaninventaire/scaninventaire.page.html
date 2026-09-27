@@ -1,0 +1,782 @@
+<ion-header class="inventory-header ion-no-border">
+
+  <ion-toolbar>
+
+    <!-- RETOUR -->
+    <ion-buttons slot="start">
+
+      <ion-button
+        (click)="quitterInventaire()"
+        fill="clear">
+
+        <ion-icon
+          slot="icon-only"
+          name="arrow-back-outline">
+        </ion-icon>
+
+      </ion-button>
+
+    </ion-buttons>
+
+
+    <!-- TITRE -->
+    <ion-title>
+
+      <div class="header-title">
+
+        <strong>Inventaire</strong>
+
+        <small>
+          Contrôle des bijoux
+        </small>
+
+      </div>
+
+    </ion-title>
+
+
+    <!-- FLASH -->
+    <ion-buttons slot="end">
+
+      <ion-button
+        *ngIf="scanEnCours"
+        (click)="toggleFlash()"
+        fill="clear">
+
+        <ion-icon
+          slot="icon-only"
+          [name]="flashActive ? 'flash' : 'flash-outline'">
+        </ion-icon>
+
+      </ion-button>
+
+    </ion-buttons>
+
+  </ion-toolbar>
+
+
+  <!-- ONGLETS -->
+
+  <ion-segment
+    [(ngModel)]="selectedTab"
+    class="inventory-segment">
+
+    <ion-segment-button value="inventory">
+
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+
+      <ion-label>
+        Inventaire
+        <small>
+          {{ totallus || 0 }} lus
+        </small>
+      </ion-label>
+
+    </ion-segment-button>
+
+
+    <ion-segment-button value="reports">
+
+      <ion-icon name="keypad-outline"></ion-icon>
+
+      <ion-label>
+        Entrer code
+        <small>
+          Manuel
+        </small>
+      </ion-label>
+
+    </ion-segment-button>
+
+  </ion-segment>
+
+</ion-header>
+
+
+
+<ion-content class="inventory-content">
+
+
+  <!-- =====================================================
+       RAFRAICHISSEMENT
+  ====================================================== -->
+
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)">
+
+    <ion-refresher-content
+      pullingIcon="arrow-down-outline"
+      pullingText="Tirer pour actualiser"
+      refreshingSpinner="circles"
+      refreshingText="Actualisation...">
+    </ion-refresher-content>
+
+  </ion-refresher>
+
+
+
+  <!-- =====================================================
+       RESUME
+  ====================================================== -->
+
+  <div class="summary-section">
+
+    <div class="summary-header">
+
+      <div>
+
+        <span class="overline">
+          INVENTAIRE EN COURS
+        </span>
+
+        <h1>
+          Contrôle du plateau
+        </h1>
+
+      </div>
+
+
+      <div class="live-status">
+
+        <span></span>
+
+        En cours
+
+      </div>
+
+    </div>
+
+
+<div class="stats-grid">
+
+  <!-- =========================
+       LUS
+  ========================== -->
+
+  <div class="stat-card stat-success">
+
+    <div class="stat-icon">
+
+      <ion-icon
+        name="checkmark-circle-outline">
+      </ion-icon>
+
+    </div>
+
+    <div>
+
+      <strong>
+        {{ totallus || 0 }}
+      </strong>
+
+      <small>
+        Pièces lues
+      </small>
+
+      <span class="stat-weight">
+        {{ poidsLus | number:'1.2-2' }} g
+      </span>
+
+      <small>
+        Poids lu
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       A CONTROLER
+  ========================== -->
+
+  <div class="stat-card stat-warning">
+
+    <div class="stat-icon">
+
+      <ion-icon
+        name="time-outline">
+      </ion-icon>
+
+    </div>
+
+    <div>
+
+      <strong>
+        {{ totalstock || 0 }}
+      </strong>
+
+      <small>
+        À contrôler
+      </small>
+
+      <span class="stat-weight">
+        {{ poidsRestants | number:'1.2-2' }} g
+      </span>
+
+      <small>
+        Poids restant
+      </small>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       TOTAL
+  ========================== -->
+
+  <div class="stat-card stat-info">
+
+    <div class="stat-icon">
+
+      <ion-icon
+        name="layers-outline">
+      </ion-icon>
+
+    </div>
+
+    <div>
+
+      <strong>
+        {{ totalstocklus || 0 }}
+      </strong>
+
+      <small>
+        Total
+      </small>
+
+      <span class="stat-weight">
+        {{ totalPoids | number:'1.2-2' }} g
+      </span>
+
+      <small>
+        Poids total
+      </small>
+
+    </div>
+
+  </div>
+
+</div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       ONGLET INVENTAIRE
+  ====================================================== -->
+
+  <div
+    *ngIf="selectedTab === 'inventory'"
+    class="tab-content">
+
+
+    <!-- SCANNER -->
+
+    <div class="scanner-card">
+
+      <div class="scanner-symbol">
+
+        <ion-icon
+          name="scan-outline">
+        </ion-icon>
+
+      </div>
+
+
+      <h2>
+        Scanner un bijou
+      </h2>
+
+
+      <p>
+        Scannez le code-barres ou le QR code
+        du bijou pour le valider.
+      </p>
+
+<ion-button
+  *ngIf="!scanEnBoucle"
+  expand="block"
+  shape="round"
+  class="main-scan-button"
+  (click)="demarrerScanner()">
+
+  <ion-icon
+    slot="start"
+    name="barcode-outline">
+  </ion-icon>
+
+  Scanner les bijoux
+
+</ion-button>
+
+
+<ion-button
+  *ngIf="scanEnBoucle"
+  expand="block"
+  shape="round"
+  color="danger"
+  class="main-scan-button"
+  (click)="arreterScanner()">
+
+  <ion-icon
+    slot="start"
+    name="stop-circle-outline">
+  </ion-icon>
+
+  Arrêter le scanner
+
+</ion-button>
+
+    </div>
+
+
+
+    <!-- INFORMATION -->
+
+    <div class="security-info">
+
+      <ion-icon
+        name="shield-checkmark-outline">
+      </ion-icon>
+
+      <div>
+
+        <strong>
+          Validation automatique
+        </strong>
+
+        <span>
+          Un même code ne peut pas être ajouté
+          deux fois au plateau.
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- LISTE -->
+
+    <div class="list-header">
+
+  <div>
+
+    <span>
+      HISTORIQUE
+    </span>
+
+    <h2>
+      Bijoux lus
+    </h2>
+
+    <div class="history-total-weight">
+
+      <ion-icon name="scale-outline"></ion-icon>
+
+      <span>
+        Poids contrôlé :
+      </span>
+
+      <strong>
+        {{ poidsLus | number:'1.2-2' }} g
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <div class="list-counter">
+
+    {{ customers.length }}
+
+  </div>
+
+</div>
+
+
+
+    <!-- VIDE -->
+
+    <div
+      *ngIf="customers.length === 0 && !loading"
+      class="empty-state">
+
+      <div class="empty-icon">
+
+        <ion-icon
+          name="scan-outline">
+        </ion-icon>
+
+      </div>
+
+      <strong>
+        Aucun bijou lu
+      </strong>
+
+      <p>
+        Scannez votre premier bijou
+        pour commencer l'inventaire.
+      </p>
+
+    </div>
+
+
+
+    <!-- LOADING -->
+
+    <div
+      *ngIf="loading"
+      class="loading-state">
+
+      <ion-spinner></ion-spinner>
+
+      <span>
+        Chargement de l'inventaire...
+      </span>
+
+    </div>
+
+
+
+    <!-- LISTE BIJOUX -->
+
+    <ion-list
+      *ngIf="customers.length > 0"
+      class="jewelry-list">
+
+
+      <ion-item-sliding
+        *ngFor="let customer of customers">
+
+
+        <!-- SUPPRIMER DE LA LECTURE -->
+
+        <ion-item-options side="start">
+
+          <ion-item-option
+            color="danger"
+            (click)="supprimerLecture(customer.num_sale)">
+
+            <ion-icon
+              slot="icon-only"
+              name="trash-outline">
+            </ion-icon>
+
+          </ion-item-option>
+
+        </ion-item-options>
+
+
+
+        <!-- BIJOU -->
+
+        <ion-item
+          lines="none"
+          class="jewelry-item">
+
+
+          <div
+            class="jewelry-icon"
+            slot="start">
+
+            <ion-icon
+              name="diamond-outline">
+            </ion-icon>
+
+          </div>
+
+
+          <ion-label>
+
+
+            <div class="jewelry-title-row">
+
+              <h2>
+                REF {{ customer.item_id }}
+              </h2>
+
+
+              <span
+                class="badge-ok"
+                *ngIf="customer.etatbijoux === 'OK'">
+
+                <ion-icon
+                  name="checkmark-circle">
+                </ion-icon>
+
+                OK
+
+              </span>
+
+
+              <span
+                class="badge-error"
+                *ngIf="customer.etatbijoux !== 'OK'">
+
+                <ion-icon
+                  name="close-circle">
+                </ion-icon>
+
+                NON OK
+
+              </span>
+
+            </div>
+
+
+            <p class="jewelry-name">
+              {{ customer.name }}
+            </p>
+
+
+            <div class="details-row">
+
+              <span>
+
+                <ion-icon
+                  name="pricetags-outline">
+                </ion-icon>
+
+                {{ customer.category }}
+
+              </span>
+
+
+              <span>
+
+                <ion-icon
+                  name="location-outline">
+                </ion-icon>
+
+                {{ customer.location_id }}
+
+              </span>
+
+            </div>
+
+
+            <div class="details-row">
+
+              <span>
+
+                <ion-icon
+                  name="scale-outline">
+                </ion-icon>
+
+                {{ customer.poids }} g
+
+              </span>
+
+
+              <span>
+
+                <ion-icon
+                  name="cube-outline">
+                </ion-icon>
+
+                Qté {{ customer.quantity }}
+
+              </span>
+
+            </div>
+
+
+            <div
+              class="stock-status"
+              *ngIf="customer.deleted == 0">
+
+              <span></span>
+
+              En stock
+
+            </div>
+
+
+            <div
+              class="stock-status deleted"
+              *ngIf="customer.deleted == 1">
+
+              <span></span>
+
+              Supprimé
+
+            </div>
+
+
+          </ion-label>
+
+        </ion-item>
+
+
+
+        <!-- ACTIONS -->
+
+        <ion-item-options side="end">
+
+          <ion-item-option
+            color="success"
+            (click)="voirPrix(customer)">
+
+            <ion-icon
+              slot="top"
+              name="cash-outline">
+            </ion-icon>
+
+            Prix
+
+          </ion-item-option>
+
+        </ion-item-options>
+
+
+      </ion-item-sliding>
+
+    </ion-list>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       ONGLET SAISIE MANUELLE
+  ====================================================== -->
+
+  <div
+    *ngIf="selectedTab === 'reports'"
+    class="manual-content">
+
+
+    <div class="manual-header">
+
+      <div class="manual-icon">
+
+        <ion-icon
+          name="keypad-outline">
+        </ion-icon>
+
+      </div>
+
+      <h1>
+        Entrer un code
+      </h1>
+
+      <p>
+        Saisissez manuellement le numéro
+        du bijou à contrôler.
+      </p>
+
+    </div>
+
+
+
+    <div class="manual-card">
+
+      <ion-item
+        lines="none"
+        class="code-input">
+
+        <ion-icon
+          slot="start"
+          name="barcode-outline">
+        </ion-icon>
+
+
+        <ion-input
+          type="text"
+          inputmode="numeric"
+          [(ngModel)]="item_id"
+          placeholder="Exemple : 8956"
+          clearInput="true"
+          (keyup.enter)="validerBijou()">
+        </ion-input>
+
+      </ion-item>
+
+
+      <ion-button
+        expand="block"
+        shape="round"
+        color="success"
+        class="manual-button"
+        [disabled]="!item_id || validationEnCours"
+        (click)="validerBijou()">
+
+        <ion-spinner
+          *ngIf="validationEnCours"
+          name="crescent">
+        </ion-spinner>
+
+        <ion-icon
+          *ngIf="!validationEnCours"
+          slot="start"
+          name="checkmark-circle-outline">
+        </ion-icon>
+
+        {{ validationEnCours ? 'Validation...' : 'Valider le code' }}
+
+      </ion-button>
+
+    </div>
+
+
+
+    <div class="manual-info">
+
+      <ion-icon
+        name="information-circle-outline">
+      </ion-icon>
+
+      <span>
+        Après validation, le bijou est automatiquement
+        marqué <strong>OK</strong> et ajouté à l'inventaire.
+      </span>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="bottom-space"></div>
+
+
+</ion-content>
+
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<ion-footer class="inventory-footer">
+
+  <ion-toolbar>
+
+
+    <ion-button
+      expand="block"
+      shape="round"
+      color="danger"
+      [disabled]="!totallus || totallus <= 0"
+      (click)="validertableau()">
+
+      <ion-icon
+        slot="start"
+        name="checkmark-done-outline">
+      </ion-icon>
+
+      Valider le plateau
+
+    </ion-button>
+
+
+  </ion-toolbar>
+
+</ion-footer>

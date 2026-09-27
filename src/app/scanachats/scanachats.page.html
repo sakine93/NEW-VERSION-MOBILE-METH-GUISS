@@ -1,0 +1,78 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="toolbar-soft">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>ACHATS OR</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="loadTitres()">
+        <ion-icon name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="content-bg">
+
+  <!-- En-tête compact (optionnel) -->
+  <ion-header collapse="condense">
+    <ion-toolbar color="danger">
+      <ion-title size="small">ACHATS OR</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Carte principale -->
+  <ion-card class="card-pane">
+    <ion-card-header>
+      <ion-card-title>Ajouter un achat</ion-card-title>
+      <ion-card-subtitle>Choisis le titre puis valide</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <!-- Sélecteur titres depuis l’API -->
+      <ion-item>
+        <ion-label>Choisir le titre à acheter</ion-label>
+        <ion-select [(ngModel)]="titre" placeholder="Sélectionner un titre">
+          <ion-select-option *ngFor="let t of titres" [value]="t.nom_titre">
+            {{ t.nom_titre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Champs cachés conservés (compatibilité) -->
+      <ion-item style="display: none;">
+        <ion-label position="floating"></ion-label>
+        <ion-textarea [(ngModel)]="codeacces">{{codeacces}}</ion-textarea>
+        <ion-textarea [(ngModel)]="username">{{username}}</ion-textarea>
+      </ion-item>
+
+      <!-- Actions -->
+      <div class="actions">
+        <ion-button expand="block" color="tertiary" *ngIf="!id" (click)="createdProsesachats()" fill="outline">
+          <ion-icon slot="start" name="checkmark-done-outline"></ion-icon>
+          Valider
+        </ion-button>
+
+        <ion-button expand="block" color="tertiary" *ngIf="id>=1" (click)="updateProses()" fill="outline">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          Modifier
+        </ion-button>
+      </div>
+
+      <!-- Aide / note -->
+      <ion-note color="medium" class="hint">
+        Astuce : utilise le bouton <ion-icon name="refresh-outline"></ion-icon> si tu viens d’ajouter de nouveaux titres côté BDD.
+      </ion-note>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- (Optionnel) Bouton retour ventes -->
+  <!--
+  <div class="footer-actions">
+    <ion-button expand="block" color="warning" (click)="retourachat()">
+      <ion-icon slot="start" name="home-outline"></ion-icon>
+      Retour Ventes
+    </ion-button>
+  </div>
+  -->
+</ion-content>

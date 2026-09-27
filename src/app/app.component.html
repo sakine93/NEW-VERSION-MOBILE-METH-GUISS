@@ -1,0 +1,148 @@
+<ion-app>
+  <ion-menu menuId="main-menu" content-id="main">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title style="font-weight: bold;">
+          MENU <b style="color: #fcb800;font-size: 13pt;">-</b>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+
+     
+
+
+
+
+      <ion-list>
+        <ion-menu-toggle>
+        <ion-item routerLink="/customer">
+          <ion-icon color="#fcb800" name="qr-scanner" slot="start"> </ion-icon>
+         <ion-label style="font-weight: bold;">Acceuil System</ion-label>
+        </ion-item><br>
+        </ion-menu-toggle>
+
+
+        <ion-menu-toggle>
+          <ion-item routerLink="/updateachatpoids">
+            <ion-icon color="#fcb800" name="qr-scanner" slot="start"> </ion-icon>
+           <ion-label style="font-weight: bold;">Achat Or</ion-label>
+          </ion-item><br>
+          </ion-menu-toggle>
+
+        
+
+     
+
+<ion-menu-toggle *ngIf="item_location==33">
+  <ion-item routerLink="/paramgrammage">
+    <ion-icon color="danger" name="settings" slot="start"> </ion-icon>
+   <ion-label style="font-weight: bold;">Grammage Ventes</ion-label>
+  </ion-item><br>
+</ion-menu-toggle>
+
+
+      <ion-menu-toggle  *ngIf="item_location==33">
+         <ion-item routerLink="/paramachat">
+          <ion-icon name="settings" slot="start"> </ion-icon>
+         <ion-label style="font-weight: bold;">Grammage Achats</ion-label>
+        </ion-item><br>
+      </ion-menu-toggle>        
+      
+      <ion-menu-toggle>
+        <ion-item routerLink="/historiquevente">
+         <ion-icon color="warning" name="list-box" slot="start"> </ion-icon>
+        <ion-label style="font-weight: bold;">Historique  Ventes</ion-label>
+       </ion-item><br>
+     </ion-menu-toggle> 
+
+     <ion-menu-toggle>
+      <ion-item routerLink="/historiquerecu">
+       <ion-icon color="warning" name="list-box" slot="start"> </ion-icon>
+      <ion-label style="font-weight: bold;">Mes recus <ion-badge>0</ion-badge></ion-label>
+     </ion-item><br>
+   </ion-menu-toggle> 
+
+
+     <ion-menu-toggle  *ngIf="item_location==33">
+      <ion-item routerLink="/historiqueachats">
+       <ion-icon color="warning" name="list-box" slot="start"> </ion-icon>
+      <ion-label  style="font-weight: bold;">Historique Achats</ion-label>
+     </ion-item><br>
+   </ion-menu-toggle> 
+
+   <ion-menu-toggle  *ngIf="item_location==33">
+    <ion-item routerLink="/scaninventaire">
+     <ion-icon color="warning" name="list-box" slot="start"> </ion-icon>
+    <ion-label  style="font-weight: bold;">Inventaire</ion-label>
+   </ion-item><br>
+ </ion-menu-toggle> 
+
+ <ion-menu-toggle>
+  <ion-item routerLink="/barcodes">
+   <ion-icon color="warning" name="qr-scanner" slot="start"> </ion-icon>
+  <ion-label  style="font-weight: bold;">Barcoder Stock</ion-label>
+ </ion-item><br>
+</ion-menu-toggle> 
+
+   
+   <ion-menu-toggle>
+        <ion-item (click)="proseslogout()">
+          <ion-icon name="log-out" slot="start" > </ion-icon>
+         <ion-label  style="font-weight: bold;">Se Déconnecter</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      </ion-list>
+      <div class="footer">
+        <div class="footer-nav">
+            <ul>
+                <li (click)="leaveAReview()" style="font-weight: bold;">Sama Bijouterie !</li>
+            </ul>
+        </div>
+    
+        <div class="footer-social">
+           <a href="https://sifagroup.sn"> <ion-icon  name="globe"></ion-icon></a>
+        </div>
+    
+        <div class="footer-app-version">
+            Version v 2.0.1 by SIFA GROUP
+        </div>
+    </div>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>
+
+<style type="text/css">
+  .footer {
+  	display: flex;
+  	flex-direction: column;
+  	justify-content: flex-end;
+}
+
+.footer-nav {
+    padding: 0.5rem;
+}
+
+.footer-nav ul {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+
+}
+
+.footer-social {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.footer-app-version {
+    padding: 0.3rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+</style>

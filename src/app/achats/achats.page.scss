@@ -1,0 +1,117 @@
+/* Fond plus joli + cartes clean */
+.content-bg {
+  --background: linear-gradient(180deg, #fff7e6 0%, #ffffff 50%);
+}
+
+.toolbar-glass {
+  --background: #ffffffcc;
+  backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.username { margin-left: 8px; font-weight: 600; }
+
+.page-title {
+  --background: transparent;
+  .title {
+    font-weight: 800;
+    color: #111;
+    font-size: 16pt;
+    letter-spacing: 0.3px;
+  }
+  .total {
+    font-weight: 700;
+    margin-top: 8px;
+    font-size: 13pt;
+    background-color: #fff4d6;
+    border: 1px solid #f7e0a3;
+    padding: 6px 10px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+}
+
+/* Titres d'achat cliquables */
+.titres-wrap {
+  margin: 10px 14px 6px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+
+  .titres-head {
+    display: flex; align-items: center; justify-content: space-between;
+    font-weight: 700; color: #333; margin-bottom: 8px;
+  }
+
+  .titres-list {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+
+  .titre-chip {
+    --background: #fff;
+    --color: #333;
+    --border-color: #f0c24f;
+    border: 1px solid #f0c24f;
+    border-radius: 14px;
+    font-weight: 600;
+  }
+}
+
+/* Liste achats */
+.achat-list {
+  margin: 6px 10px 120px;
+  .achat-titre {
+    font-weight: 700;
+    font-size: 11pt;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .achat-row {
+    --background: #fff;
+    border-left: 3px solid #fcb800;
+    margin-bottom: 8px;
+    border-radius: 10px;
+  }
+  .achat-infos {
+    font-size: 10.5pt; font-weight: 600; color: #222;
+    .line { margin: 2px 0; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 9pt;
+      background: #fff7d6;
+      border: 1px solid #ffe29a;
+    }
+  }
+}
+
+/* Barre d’actions en bas */
+.bottom-actions {
+  position: sticky;
+  bottom: 0; left: 0; right: 0;
+  display: flex; gap: 12px; padding: 12px;
+  background: linear-gradient(180deg, transparent, #fff 35%);
+  border-top: 1px solid #eee;
+
+  .btn-retour {
+    flex: 1;
+    font-weight: 700;
+    --border-radius: 10px;
+  }
+  .btn-caisse {
+    flex: 1;
+    font-weight: 700;
+    --border-radius: 10px;
+  }
+}
+
+/* Boutons bordés réutilisables */
+ion-menu-button.bordered,
+ion-button.bordered {
+  --background: #fff;
+  --border-color: #e5e7eb;
+  --color: #111;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}

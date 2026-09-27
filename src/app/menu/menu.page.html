@@ -1,0 +1,72 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+			<ion-menu-button menu="main-menu"></ion-menu-button>
+		</ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar color="danger">
+      <ion-title size="small">DEPOT / RETRAIT</ion-title>
+    </ion-toolbar>
+  </ion-header>
+ 
+
+   
+  
+    <ion-button expand="block" (click)="verifCode()" style="display: none;">
+      <ion-icon slot="start" name="qr-scanner"></ion-icon>
+      Verifier Code
+    </ion-button>
+
+    <ion-item style="display: none;">
+      <ion-label position="floating">  </ion-label>
+      <ion-input [(ngModel)]="codeacces">{{codeacces}}</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Choisir Operation </ion-label>
+      <ion-select [(ngModel)]="type_operation">
+        <ion-select-option value="Depot D'argent">Depot D'argent</ion-select-option>
+        <ion-select-option value="Retrait D'argent">Retrait D'argent</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" > Non du client : </ion-label>
+      <ion-input type="text"  [(ngModel)]="comment"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" > Num Telephone : </ion-label>
+      <ion-input type="text"  [(ngModel)]="phone"></ion-input>
+    </ion-item>
+
+
+  
+
+
+
+    <ion-item>
+      <ion-label position="floating" > Montant  </ion-label>
+      <ion-input type="text"  [(ngModel)]="value"></ion-input>
+    </ion-item>
+   
+
+  
+   
+  
+    
+    <ion-button   expand="block" padding color="tertiary"   (click)="createdDepot()" fill="outline">Envoyer</ion-button>
+   
+    
+  
+  
+  
+  
+
+</ion-content>
+

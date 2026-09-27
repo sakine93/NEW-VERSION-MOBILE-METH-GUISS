@@ -1,0 +1,137 @@
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+		<ion-buttons slot="start" style="margin-top: 40px;display: none;">
+			<ion-menu-button class="bordered"  fill="solid" menu="main-menu" size="large" id="menu"></ion-menu-button> <b>( {{username}} )</b>
+		</ion-buttons>
+    <ion-buttons slot="start" (click)="menuApp()">
+      <ion-icon slot="icon-only" name="menu"></ion-icon>
+    </ion-buttons>
+	</ion-toolbar>
+
+	<ion-item lines="none">
+
+		<ion-avatar slot="start">
+		
+    </ion-avatar>
+			<ion-label>
+        <ion-button (click)="createdProsesitems()" color="primary"><ion-icon name="add-circle" style="float: right;"></ion-icon> Ajouter</ion-button>
+        <ion-button (click)="getRandomString(4)" color="danger"><ion-icon name="add-circle" style="float: right;"></ion-icon> Generer Fact</ion-button>
+				<h3 *ngIf="totalitems>0" style="font-weight: bold;margin-left: 5%;margin-top: 12px;font-size: 13pt;background-color: blanchedalmond;border-radius: 5px;text-align: center;">{{totalitems}} Piéces</h3>
+        <ion-item  style="display: none;">
+          <ion-label position="floating" >  </ion-label>
+          <ion-input [(ngModel)]="codeacces"></ion-input>
+          <ion-input [(ngModel)]="item_location"></ion-input>
+        </ion-item>
+			</ion-label>
+
+	</ion-item>
+
+
+</ion-header>
+
+<ion-content>
+  <ion-item style="display: none;">
+    <ion-label>REF FACTURE :</ion-label>
+    <ion-input disabled="true" [(ngModel)]="reffacture" type="text" ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label style="font-weight: bold;color: red;">Categorie =></ion-label>
+    <ion-select [(ngModel)]="category" (ionChange)="onChange($event)">
+      <ion-select-option value="Bagues">Bagues</ion-select-option>
+      <ion-select-option value="Bracelets">Bracelets</ion-select-option>
+      <ion-select-option value="Boucle Doreille">Boucle D'oreille</ion-select-option>
+      <ion-select-option value="Chaines">Chaines</ion-select-option>
+      <ion-select-option value="Vice">Vice</ion-select-option>
+      <ion-select-option value="Parrures">Parrures</ion-select-option>
+      <ion-select-option value="Pendentifs">Pendentifs</ion-select-option>
+      <ion-select-option value="Sautoirs">Sautoirs</ion-select-option>
+      <ion-select-option value="Pierre">Pierre</ion-select-option>
+      <ion-select-option value="Piercing">Piercing</ion-select-option>
+      <ion-select-option value="Chapelet">Chapelet</ion-select-option>
+      <ion-select-option value="Fetiche">Fetiche</ion-select-option>
+      <ion-select-option value="Colliers">Colliers</ion-select-option>
+      <ion-select-option value="Ensemble">Ensemble</ion-select-option>   
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>REF BARCODE :</ion-label>
+    <ion-input disabled="true" [(ngModel)]="name" type="text" ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label style="font-weight: bold;color: red;">Type_or => </ion-label>
+    <ion-select [(ngModel)]="titre">
+      <ion-select-option value="18k imp">18k imp</ion-select-option>
+      <ion-select-option value="18k imp si">18k imp si</ion-select-option>
+      <ion-select-option value="18k imp ex">18k imp ext</ion-select-option>
+      <ion-select-option value="18k rai">18k raika</ion-select-option>
+      <ion-select-option value="18k Neo">18k neo</ion-select-option>
+      <ion-select-option value="18k loc">18k loc</ion-select-option>
+      <ion-select-option value="18k gra">18k Grazelia</ion-select-option>
+      <ion-select-option value="21k imp">21k imp</ion-select-option>
+      <ion-select-option value="21k ind">21k Ind</ion-select-option>
+      <ion-select-option value="21k bakh">21k Bakhrene</ion-select-option>
+      <ion-select-option value="14k">14k</ion-select-option>
+      <ion-select-option value="Diam">Diamant </ion-select-option>
+      <ion-select-option value="Bij Mar">Bijoux Marq</ion-select-option>
+      <ion-select-option value="18k Bulg">18k Bulgari</ion-select-option>
+      <ion-select-option value="18k Jord">18k Jordani</ion-select-option>
+      <ion-select-option value="18k Aquare">18k Aquare</ion-select-option>
+      <ion-select-option value="18k Pomi">18k Pomi</ion-select-option>
+      <ion-select-option value="18k Turc">18k Turc</ion-select-option>
+      <ion-select-option value="18k Bakh">18k Bakhrene</ion-select-option>
+      <ion-select-option value="18k Mont">18k Mont</ion-select-option>
+      <ion-select-option value="14k Imp">14k Imp</ion-select-option>
+      <ion-select-option value="21k Mont">21k Montre</ion-select-option>
+      <ion-select-option value="Diam 18k">Diamant 18k</ion-select-option>
+      <ion-select-option value="Diam 21k">Diamant 21k</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="fixed">Prix (g) :</ion-label>
+    <ion-input  [(ngModel)]="prix_du_g" type="number" placeholder="Prix de revient (g)"></ion-input>
+  </ion-item>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item-sliding *ngFor="let item of items">
+      
+      <ion-item-options side="start">
+        <ion-item-option style="margin-top: 0px;font-weight: bold;" color="danger" (click)="delItems(item.item_id)">Annuler</ion-item-option>
+      </ion-item-options>
+     
+      <ion-item>
+      
+        <ion-label style="font-weight: bold;font-size: 10pt;"> {{item.category}} - ( {{item.type_or}} )  <br> Poids : {{item.poids}} (g)</ion-label>
+        <ion-avatar slot="end" style="width: 60px;height: 60px;">
+          <img src="http://mobile.bijouteriess.com/server_api/uploads/{{item.pic_filename}}" alt="image" >
+        </ion-avatar>
+      </ion-item>
+  
+      <ion-item-options side="end">
+  
+      
+        <ion-item-option (click)="updateItem(item.item_id,item.category,item.type_or)" style="margin-top: 0px;font-weight: bold;" color="success"><ion-icon name="camera"></ion-icon> Poids et Photo</ion-item-option>
+  
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  
+
+
+</ion-content>
+
+<ion-footer class="footer">
+  <ion-grid>
+    <ion-row>
+  
+    <ion-col style="text-align: center"><ion-button *ngIf="totalitems>0"  (click)="showAlert()" expand="block" shape="round" color="danger"><ion-icon name="send"> </ion-icon> TERMINEE </ion-button></ion-col>
+  
+    </ion-row>
+  </ion-grid>
+</ion-footer>

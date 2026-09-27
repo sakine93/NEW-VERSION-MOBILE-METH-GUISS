@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align: center;">INFOS BIJOUX</ion-title>
+    <ion-buttons slot="start" style="padding-top: 10px;display: none;">
+      <ion-button class="btn btn-danger btn-sm" (click)="dismissModal()"> Annuler </ion-button>
+      
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-item lines="none">
+
+		
+    <ion-label>
+      
+        <ion-item  style="display: none;">
+        <ion-label position="floating" >  </ion-label>
+        <ion-input [(ngModel)]="codeacces"></ion-input>
+        <ion-input [(ngModel)]="item_location"></ion-input>
+      </ion-item>
+    </ion-label>
+
+    <ion-segment [(ngModel)]="pet" >
+      <ion-segment-button value="caisse"  checked style="background-color: #03224c;font-weight: bold;color: #fff;">
+        Rapport
+      </ion-segment-button>
+    
+      <ion-segment-button (click)="scanner()" style="width: auto;" style="font-weight: bold;background-color: red;color: #fff;">
+         SCANNER
+      </ion-segment-button>
+      
+    </ion-segment>
+</ion-item>
+
+
+
+
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div [ngSwitch]="pet">
+    <ion-list class="home-content"  *ngSwitchCase="'caisse'" >
+  
+      <ion-list style="background-color: #fcb800;">
+        <ion-item-sliding *ngFor="let customer of customers">
+          <ion-item>
+            <ion-avatar slot="end" style="margin-right: 50px;">
+              <ion-badge style="color:#fcb800;font-size: 12pt;font-weight: bold;margin-right: 50px;display: none;">{{customer.poids | number : seperatorWitSpace}}  (g) <br> {{customer.quantity | number : seperatorWitSpace}} (p)</ion-badge>
+              <ion-badge color="success" style="margin-right: 10px;"> {{customer.bijoux_ok}} Lus</ion-badge><br>
+              <ion-badge color="danger" style="margin-right: 50px;"> {{customer.bijoux_non_lus}} Non lu</ion-badge>
+            </ion-avatar>
+            <ion-label>
+              <h1 style="font-weight: bold;color: #fcb800;">{{customer.category}}</h1>
+              <h2>Total Poids :{{customer.poids}} (g)</h2>
+              <h2>Total Pieces :{{customer.quantity}} (p)</h2>
+            </ion-label>
+          </ion-item>
+      
+          <ion-item-options side="end">
+            <ion-item-option color="primary" (click)="facture(customer.category)"><ion-icon name="camera"></ion-icon> VOIR PHOTO</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+      
+  </ion-list>
+
+  
+</div>
+</ion-content>
+
+<ion-footer class="footer" >
+ 
+  <ion-card  style="background-color: #fff;" *ngIf="pet == 'caisse' " >
+    <ion-card-header>
+      <ion-card-subtitle><b style="font-weight: bold;font-size: 13pt;color: red;">Etat Inventaire</b></ion-card-subtitle>
+      <ion-card-title style="text-align: left;font-size: 12pt;"><ion-icon name="clipboard"></ion-icon> Total Poids  : {{totalstockpoids}} (g)</ion-card-title>
+      <ion-card-title style="text-align: left;font-size: 12pt;"><ion-icon name="clipboard"></ion-icon> Total Pieces  : {{totalstockpiece}} (p)</ion-card-title> 
+      <ion-col style="text-align: center;float: right;"><ion-button (click)="dismissModal()"   expand="block" shape="round" color="danger"><ion-icon name="clipboard"> </ion-icon> Retour Acceuil </ion-button></ion-col>
+   
+      
+    </ion-card-header>
+ 
+  
+  </ion-card>
+</ion-footer>

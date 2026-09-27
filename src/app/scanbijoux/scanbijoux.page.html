@@ -1,0 +1,107 @@
+<ion-header class="ion-no-border" style="background-color: #03224c;">
+  <ion-toolbar>
+  
+  </ion-toolbar>
+  <ion-item lines="none">
+
+    <ion-buttons slot="start">
+      <ion-back-button  style="color:#fff" text="Fermer" icon="close" color="warning" fill="outline"></ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="start">
+      <ion-button *ngIf="showCamera" (click)="turnOnTorch()">
+        <ion-icon name="flash"  style="font-size:30pt"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+   
+    <ion-buttons slot="primary">
+      <ion-back-button text="" icon="" color="tertiary" fill="outline"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button  (click)="closeCamera()">
+        <ion-icon name="close"  size="large" style="color:#fff;display: none;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+			
+
+	</ion-item>
+</ion-header>
+
+
+
+<ion-content>
+  <ion-list-header style="background-color: red;height: 50px;color: #fff;font-weight: bold;text-align: center;border: 2px solid #ccc;" (click)="scanBarcode()">
+    <ion-label style="text-align: center;font-weight: bold;font-size: 15pt;margin-left: 15px;"> ! SCANNER UN BIJOUX !</ion-label>
+  </ion-list-header>
+
+ 
+  <div>
+   
+    <br>
+   
+    
+  
+    <ion-button expand="block"  style="display: none;">
+      <ion-icon slot="start" name="qr-scanner"></ion-icon>
+      Verifier Code
+    </ion-button>
+    <ion-item style="display: none;">
+      <ion-label position="floating" >  </ion-label>
+      <ion-input [(ngModel)]="codeacces">{{codeacces}}</ion-input>
+      <ion-input [(ngModel)]="item_location"></ion-input>
+    </ion-item>
+    
+    
+    <ion-item style="display: none;">
+      <ion-label position="fixed"> Description </ion-label>
+      <ion-input type="text" [(ngModel)]="comment">{{textScanned}}</ion-input>
+    </ion-item>
+  
+    <ion-list>
+      <ion-item-sliding *ngFor="let customer of customers">
+        
+      
+        <ion-item style="display: none;">
+         <ion-label>Poids trouve</ion-label>
+          <ion-input type="number" [(ngModel)]="poids">{{customer.poids}}</ion-input>
+        </ion-item>
+       
+        <ion-item style="display: none;"> 
+          <ion-label>quantity</ion-label>
+          <ion-input type="text" [(ngModel)]="quantity">{{customer.quantity}}</ion-input>
+        </ion-item>
+        <ion-item style="display: none;"> 
+          <ion-label>prix vente g</ion-label>
+          <ion-input type="text" [(ngModel)]="prix_vente_g">{{customer.prix_vente_g}}</ion-input>
+        </ion-item>
+
+        <ion-item style="display: none;"> 
+          <ion-label>Location Id</ion-label>
+          <ion-input type="text" [(ngModel)]="location_id">{{customer.location_id}}</ion-input>
+        </ion-item>
+  
+       
+      </ion-item-sliding>
+    </ion-list>
+  
+    
+  
+    <ion-button  style="display: none;" expand="block" padding color="tertiary" *ngIf="!id" (click)="createdProses()" fill="outline">Valider</ion-button>
+    <ion-button expand="block" padding color="tertiary" *ngIf="id>=1" (click)="updateProses()" fill="outline">Modifier</ion-button>
+  
+  </div>
+  
+  
+  
+
+</ion-content>
+<ion-footer class="footer">
+  
+  <ion-grid>
+    <ion-row  class="roundedInput">
+      <ion-col><ion-input style="background-color: rgb(187, 90, 52);color: whitesmoke;width: 100%;margin-top: 7px;height:42px;font-weight: bold;" placeholder="REF PROD :" type="tel"  [(ngModel)]="item_id">{{ textScanned }}</ion-input></ion-col> 
+    <ion-col style="text-align: center"><ion-button  (click)="qrcodeexist()"   expand="block"  color="danger"><ion-icon name="search"> </ion-icon> Valider </ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>

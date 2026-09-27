@@ -1,0 +1,141 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="danger" no-border>
+    <ion-buttons slot="start">
+      <ion-button>
+        <img src="../../assets/menu.svg" />
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>
+      SAMA OR
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <img src="../../assets/notification.svg" />
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="banner">
+    <img src="../../assets/banner.svg" />
+
+   
+
+    <div class="search">
+      <ion-item lines="none" class="ion-no-padding" style="border: 0px solid #000;height: 135px;text-align: center;">
+        <img style="height: 135px;width: 236px;" src="../../assets/events/copie.jpg" />
+      </ion-item>
+    </div>
+  </div>
+
+  <div padding><br>
+    <ion-slides pager="false" [options]="slideOpts">
+      <ion-slide>
+        <ion-col>
+          <ion-chip #chip2 (click)="presentLoadingLiv()" style="background-color: rgb(158, 98, 98);color: bisque;">
+            <ion-icon name="search"  style="color: bisque;"></ion-icon>
+            <ion-label style="font-weight: bold;">Bagues</ion-label>
+            
+          </ion-chip>
+        </ion-col>
+
+        <ion-col>
+          <ion-chip #chip2 (click)="presentLoadingLivRest()" style="background-color: rgb(158, 98, 98);color: bisque;">
+            <ion-icon name="search"  style="color: bisque;"></ion-icon>
+            <ion-label style="font-weight: bold;"> Boucle D'oreille</ion-label>
+           
+          </ion-chip>
+        </ion-col>
+
+        <ion-col>
+          <ion-chip #chip2 (click)="presentLoadingLivBois()" style="background-color: rgb(158, 98, 98);color: bisque;">
+            <ion-icon name="search"  style="color: bisque;"></ion-icon>
+            <ion-label style="font-weight: bold;">Bracelets</ion-label>
+           
+          </ion-chip>
+        </ion-col>
+
+        <ion-col>
+          <ion-chip #chip2 (click)="presentLoadingLivBois()" style="background-color: rgb(158, 98, 98);color: bisque;">
+            <ion-icon name="search"  style="color: bisque;"></ion-icon>
+            <ion-label style="font-weight: bold;">Bracelets</ion-label>
+           
+          </ion-chip>
+        </ion-col>
+
+        <ion-col>
+          <ion-chip #chip2 (click)="presentLoadingLivBois()" style="background-color: rgb(158, 98, 98);color: bisque;">
+            <ion-icon name="search"  style="color: bisque;"></ion-icon>
+            <ion-label style="font-weight: bold;">Bracelets</ion-label>
+           
+          </ion-chip>
+        </ion-col>
+
+        <ion-col>
+          <ion-chip #chip2 (click)="presentLoadingLivBois()" style="background-color: rgb(158, 98, 98);color: bisque;">
+            <ion-icon name="search"  style="color: bisque;"></ion-icon>
+            <ion-label style="font-weight: bold;">Bracelets</ion-label>
+           
+          </ion-chip>
+        </ion-col>
+      </ion-slide>
+
+      
+    </ion-slides>
+  </div>
+
+  
+
+  <div class="default-top-padding title">
+    <h2>Bijoux Dispo</h2>
+  </div>
+
+  <div class="live-event" *ngFor="let customer of customers">
+    <div class="swiper-zoom-container"  (touchstart)="touchStart(card)"
+    (touchend)="touchEnd(zoomslides, card)">
+     
+      <img style="height: 80px;width: 100px;" src="https://bijouterie.sifagroup.sn/public/uploads/item_pics/{{ customer.pic_filename }}" tappable (click)="openPreview(customer.pic_filename)">
+    </div>
+    
+
+    <div class="info">
+      <div class="content">
+        <h6>{{customer.name}}/{{customer.item_id}}</h6>
+
+        <p class="stats">
+          <span style="color: #000;font-weight: bold;"><ion-icon name="eye"></ion-icon>&nbsp;2.3K</span><span><ion-icon name="heart"></ion-icon>&nbsp;3758</span>
+        </p>
+        <p class="stats">
+          <span style="color: #000;font-weight: bold;"><ion-icon name="heart"></ion-icon>&nbsp;{{customer.type_or}}</span>
+        </p>
+        <p class="stats" style="color: #000;font-weight: bold;">
+          <span style="color: #000;font-weight: bold;"><ion-icon name="eye"></ion-icon>&nbsp;{{customer.poids}}</span>
+        </p>
+      </div>
+
+      <div class="indicator">
+        <div><ion-icon name="cart" size="large"></ion-icon></div>
+      </div>
+    </div>
+  </div>
+ 
+</ion-content>
+<ion-footer class="footer">
+  
+  <ion-grid>
+
+  
+      <ion-row>
+      <ion-col style="text-align: left;font-weight: bold;font-size: 12pt;"><ion-icon name="cart"> </ion-icon> Total Achat : 0 FCFA</ion-col><br>
+      </ion-row>
+      <ion-row>
+        <ion-col style="text-align: left;font-weight: bold;font-size: 12pt;"><ion-icon name="cart"> </ion-icon> Total Poids : 0.0 (g)</ion-col><br>
+        </ion-row>
+   
+    
+  </ion-grid>
+  
+</ion-footer>

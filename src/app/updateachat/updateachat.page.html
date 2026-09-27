@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Détails Achats</ion-title>
+    <ion-buttons slot="primary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label position="floating">Ref Titre</ion-label>
+    <ion-input readonly [(ngModel)]="titre"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Poids (g)</ion-label>
+    <ion-input type="number" [(ngModel)]="poids"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Prix d'achat</ion-label>
+    <ion-input type="number" [(ngModel)]="amount"></ion-input>
+  </ion-item>
+
+  <!-- BIJOU -->
+  <ion-card>
+    <ion-card-header>📸 Photo du bijou *</ion-card-header>
+    <ion-card-content>
+      <div class="upload-box" (click)="openFile('bijou')">
+        <ion-img *ngIf="imgBijou" [src]="imgBijou"></ion-img>
+        <ion-icon *ngIf="!imgBijou" name="camera" size="large"></ion-icon>
+      </div>
+      <input type="file" accept="image/*" capture="environment"
+             hidden #fileBijou (change)="onFileSelected($event,'bijou')">
+    </ion-card-content>
+  </ion-card>
+
+  <!-- RECTO -->
+  <ion-card>
+    <ion-card-header>🪪 CNI Recto *</ion-card-header>
+    <ion-card-content>
+      <div class="upload-box" (click)="openFile('recto')">
+        <ion-img *ngIf="imgRecto" [src]="imgRecto"></ion-img>
+        <ion-icon *ngIf="!imgRecto" name="camera" size="large"></ion-icon>
+      </div>
+      <input type="file" accept="image/*" capture="environment"
+             hidden #fileRecto (change)="onFileSelected($event,'recto')">
+    </ion-card-content>
+  </ion-card>
+
+  <!-- VERSO -->
+  <ion-card>
+    <ion-card-header>🪪 CNI Verso *</ion-card-header>
+    <ion-card-content>
+      <div class="upload-box" (click)="openFile('verso')">
+        <ion-img *ngIf="imgVerso" [src]="imgVerso"></ion-img>
+        <ion-icon *ngIf="!imgVerso" name="camera" size="large"></ion-icon>
+      </div>
+      <input type="file" accept="image/*" capture="environment"
+             hidden #fileVerso (change)="onFileSelected($event,'verso')">
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="tertiary" (click)="updateachatProses()">
+    Valider
+  </ion-button>
+
+</ion-content>

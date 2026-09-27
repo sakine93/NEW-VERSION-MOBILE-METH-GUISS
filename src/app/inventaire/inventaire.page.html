@@ -1,0 +1,244 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align: center;">INFOS BIJOUX</ion-title>
+    <ion-buttons slot="start" style="padding-top: 10px;display: none;">
+      <ion-button class="btn btn-danger btn-sm" (click)="dismissModal()"> Annuler </ion-button>
+      
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-item lines="none">
+
+		
+    <ion-label>
+      
+        <ion-item  style="display: none;">
+        <ion-label position="floating" >  </ion-label>
+        <ion-input [(ngModel)]="codeacces"></ion-input>
+        <ion-input [(ngModel)]="item_location"></ion-input>
+      </ion-item>
+    </ion-label>
+
+    <ion-segment [(ngModel)]="pet" >
+      <ion-segment-button value="caisse"  checked style="background-color: #03224c;font-weight: bold;color: #fff;">
+        Mes Bijoux
+      </ion-segment-button>
+    
+      <ion-segment-button value="puppies" style="width: auto;" style="font-weight: bold;background-color: red;color: #fff;">
+         Tracabilité
+      </ion-segment-button>
+      <ion-segment-button value="photos"  style="font-weight: bold;background-color: red;color: #fff;display:none">
+        Photo
+     </ion-segment-button>
+      
+    </ion-segment>
+</ion-item>
+
+
+
+
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div [ngSwitch]="pet">
+    <ion-list class="home-content"  *ngSwitchCase="'caisse'" >
+      <ion-button expand="full" color="danger">Scanners le Bijoux</ion-button>
+  <ion-list style="background-color: #fcb800;">
+    <ion-item  *ngFor="let customer of customers">
+      <ion-avatar slot="end" style="margin-right: 50px;">
+ 
+        <ion-badge style="color:#fcb800;font-size: 12pt;font-weight: bold;margin-right: 50px;display: none;">{{customer.poids | number : seperatorWitSpace}}  (g) <br> {{customer.quantity | number : seperatorWitSpace}} (p)</ion-badge>
+        <ion-badge style="color:#fcb800;font-size: 12pt;font-weight: bold;margin-right: 50px;">En stock</ion-badge>
+      </ion-avatar>
+      <ion-label>
+        <h1 style="font-weight: bold;color: #fcb800;">{{customer.category}}</h1>
+        <h2>Total Poids :{{customer.poids}} (g)</h2>
+        <h2>Total Pieces :{{customer.quantity}} (p)</h2>
+       
+      </ion-label>
+    </ion-item>
+   
+  
+  </ion-list>
+  </ion-list>
+
+  <ion-list class="home-content"  *ngSwitchCase="'puppies'" >
+    <ion-searchbar color="warning" style="color: #000;font-weight: bold;"    placeholder="Entrer le reférence du bijoux  " [(ngModel)]="term" animated="true"></ion-searchbar>
+    <ion-button (click)="verifbarcode()" expand="full"><ion-icon name="search"></ion-icon> Vérifier le barcode </ion-button>
+    <ion-list style="background-color: #fcb800;">
+   
+      
+      <ng-container *ngIf="infostock.length > 0; else noStockFound">
+        <ion-item-sliding *ngFor="let venteb of infostock">
+          <ion-item style="background-color: #fcb800">
+          
+            <ion-label>
+              <h2 style="font-weight: bold;color: #000;">REF : {{venteb.item_id}}</h2>
+              <h2 style="font-weight: bold;color: #000;"> Suppresion : <b *ngIf="venteb.deleted == 0" style="color:green">Non</b><b *ngIf="venteb.deleted == 1" style="color:red">Oui</b></h2>
+              <h2 style="font-weight: bold;color: #000;"> Location : <b *ngIf="venteb.poids > 0" style="color:green">{{venteb.location_name}}</b></h2> 
+              <h2 style="font-weight:bold;color: #000;">Poids :  {{venteb.poids}} ( g )</h2>
+              <h2 style="font-weight:bold;color: #000;">Qte :  {{venteb.quantity}} ( p )</h2>
+              <h2 style="font-weight:bold;color: #000;">Entré le : <b style="color: #fcb800;">{{venteb.heure}} </b></h2>
+            </ion-label>
+            <img src="http://mobile.bijouteriess.com/server_api/uploads/{{venteb.pic_filename}}" style="width: 100px; height: auto; margin-left: 20px;" alt="PAS PHOTO">
+          </ion-item>
+          <ion-item>
+            <ion-button expand="full" (click)="photos(venteb.item_id)"> <ion-icon size="large" name="camera"></ion-icon>  Modifier Photo </ion-button>
+          </ion-item>
+        </ion-item-sliding>
+      </ng-container>
+      
+      <ng-template #noStockFound>
+        <ion-item>
+          <ion-label>Aucun stock trouvé pour le code-barres {{ barcode }}</ion-label>
+        </ion-item>
+      </ng-template>
+      
+
+     
+      
+      <ion-item-sliding  *ngFor="let venteb of infosventes ">
+        <ion-item style="background-color: #fcb800">
+          <ion-icon  name="image" slot="start"></ion-icon>
+          <ion-label>
+            <h2>Bijoux Vendu <ion-icon name="notifications" id="text" style="color: red;">Bijoux Deja Vendu</ion-icon></h2>
+            <h2 style="font-weight: bold;color: #000;">Bijoux : {{venteb.name}} / {{venteb.type_or}}</h2>
+            <h2 style="font-weight: bold;color: #000;">Cat : {{venteb.category}}</h2>
+            <h2 style="font-weight: bold;color: #000;">REF : {{venteb.item_id}} / Poids : {{venteb.poids}}</h2>
+            <h2 style="font-weight:bold;color: #000;">Vendu le : <b style="color: #fcb800;">{{venteb.sale_time}} </b></h2>
+            <p style="white-space: pre-wrap;" *ngIf="venteb.employee_id == 2388">Ce bijoux est vendu par <b> Vieux  a {{venteb.first_name}} {{venteb.last_name}}</b> </p>
+            <p style="white-space: pre-wrap;" *ngIf="venteb.employee_id == 2254">Ce bijoux est vendu par <b> Ndeye Fatou  a {{venteb.first_name}} {{venteb.last_name}}</b> </p>
+            <p style="white-space: pre-wrap;" *ngIf="venteb.employee_id == 12599">Ce bijoux est vendu par <b> Ibrahima a {{venteb.first_name}} {{venteb.last_name}}  </b> </p>
+            <p style="white-space: pre-wrap;" *ngIf="venteb.employee_id == 44">Ce bijoux est vendu par <b> la caisse a {{venteb.first_name}} {{venteb.last_name}}  </b> </p>
+           
+          </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+      
+      <ion-item *ngIf="infosventes && infosventes.length == 0">
+        <ion-label>
+          <h2 style="font-weight:bold;color: #000;">Aucune vente trouvée pour ce code-barre</h2>
+        </ion-label>
+      </ion-item>
+      
+
+
+      <ion-item-sliding   *ngFor="let stockprop of verifstockprop">
+        <ion-item>
+        <ion-avatar slot="end" style="margin-right: 50px;">
+   
+          <ion-badge style="color:#fcb800;font-size: 12pt;font-weight: bold;margin-right: 50px;">{{customerb.poids | number : seperatorWitSpace}}  (g) <br> {{customerb.quantity | number : seperatorWitSpace}} (p)</ion-badge>
+        </ion-avatar>
+        <ion-label>
+          <h1>{{customerb.category}}</h1>
+          <h2>{{customerb.type_or}}</h2>
+          <h2>Ref :{{customerb.name}}</h2>
+        
+         
+        </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+
+          
+          <ion-item-option (click)="voirPhoto(customerb.name)" style="margin-top: 0px;font-weight: bold;" color="primary"><ion-icon name="camera" size="large"></ion-icon> VOIR PHOTO DISPO</ion-item-option>
+  
+        </ion-item-options>
+      </ion-item-sliding >
+    
+     
+    
+    </ion-list>
+    </ion-list>
+
+    <ion-list class="home-content"  *ngSwitchCase="'photos'" >
+      <ion-item>
+        <ion-label position="fixed">REF N- :</ion-label>
+        <ion-input type="text" readonly="true"  style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000" [(ngModel)]="id"></ion-input>
+        <ion-input  [(ngModel)]="imgtest">{{imgtest}}</ion-input>
+      </ion-item>
+
+    
+
+
+<ion-list>
+  
+ 
+  <h5 *ngIf="images.length === 0" text-center>Choisir la  photo de bijoux</h5>
+
+
+<ion-list>
+
+  <ion-card>
+    <ion-card-header style="background-color: #fcb800;font-weight: bold;" (click)="selectImage()">
+      <ion-icon name="camera"  size="small"></ion-icon>  PRENDRE UNE PHOTO 
+    </ion-card-header>
+    <ion-card-content>
+    
+<h3  style="text-align: center;margin-top: 20px;" *ngIf="images.length === 0"> <ion-icon size="large" slot="icon-only" name="cloud-upload"></ion-icon> Choisir une photo par la camera</h3>
+
+      <ion-list>
+       
+          <ion-item *ngFor="let img of images; index as pos ">
+            
+        
+              <img  [src]="img.path" style="width: 150px;height: 150px;">
+           
+            <div>
+              <ion-button slot="end"  (click)="startUpload(img)" #select1>
+                <ion-icon size="large" slot="icon-only" name="cloud-upload"></ion-icon>
+                Valider Photo
+              </ion-button>
+
+              <ion-button slot="end" fill="clear" (click)="deleteImage(img, pos)">
+                <ion-icon  size="large" slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+            </div> <br>
+          
+
+            
+      
+          </ion-item>
+        </ion-list>
+    </ion-card-content>
+  
+</ion-card> 
+</ion-list>
+
+  <br>
+
+
+    <ion-button *ngIf="imgtest" expand="full" (click)="updateProses(imgtest,id)">
+Valider Cette photo 
+    </ion-button>
+
+    
+  
+  
+</ion-list>
+
+    </ion-list>
+</div>
+</ion-content>
+
+<ion-footer class="footer" >
+ 
+  <ion-card  style="background-color: #fff;" *ngIf="pet == 'caisse' " >
+    <ion-card-header>
+      <ion-card-subtitle><b style="font-weight: bold;font-size: 13pt;color: red;">Etat Inventaire</b></ion-card-subtitle>
+      <ion-card-title style="text-align: left;font-size: 12pt;"><ion-icon name="clipboard"></ion-icon> Total Poids  : {{totalstockpoids}} (g)</ion-card-title>
+      <ion-card-title style="text-align: left;font-size: 12pt;"><ion-icon name="clipboard"></ion-icon> Total Pieces  : {{totalstockpiece}} (p)</ion-card-title> 
+      <ion-col style="text-align: center;float: right;"><ion-button (click)="dismissModal()"   expand="block" shape="round" color="danger"><ion-icon name="clipboard"> </ion-icon> Retour Acceuil </ion-button></ion-col>
+   
+      
+    </ion-card-header>
+ 
+  
+  </ion-card>
+</ion-footer>

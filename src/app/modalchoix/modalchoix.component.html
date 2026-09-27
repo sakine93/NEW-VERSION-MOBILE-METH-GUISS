@@ -1,0 +1,29 @@
+<ion-header  style="background-color:#03224c">
+  <ion-toolbar>
+    <ion-title style="font-weight: bold;">
+       Type de Vente
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modal-content">
+  <ion-grid >
+    <ion-row>
+      <ion-col size="6" style="font-weight: bold;">
+        <ion-icon name="barcode" size="large"></ion-icon>
+        <br>
+       <ion-button color="success" (click)="barcode()" >Vente Barcode</ion-button>
+      </ion-col>
+      <ion-col size="6" style="font-weight: bold;">
+        <ion-icon size="large" name="scale"></ion-icon>
+        <br>
+        <ion-button (click)="poids()"  color="primary">Vente Poids</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

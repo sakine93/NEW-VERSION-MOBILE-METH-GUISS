@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    
+    <ion-buttons slot="start">
+			<ion-menu-button menu="main-menu"></ion-menu-button>
+		</ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar color="danger">
+      <ion-title size="small">Ventes par poids</ion-title>
+    </ion-toolbar>
+  </ion-header>
+   
+    <ion-button expand="block" (click)="scanBarcode()" style="display: none;">
+      <ion-icon slot="start" name="qr-scanner"></ion-icon>
+      Scanner un bijoux
+    </ion-button>
+    <ion-button expand="block" (click)="verifCode()" style="display: none;">
+      <ion-icon slot="start" name="qr-scanner"></ion-icon>
+      Verifier Code
+    </ion-button>
+    <ion-item style="display: none;">
+      <ion-label position="floating" >  </ion-label>
+      <ion-textarea [(ngModel)]="codeacces">{{codeacces}}</ion-textarea>
+      <ion-textarea [(ngModel)]="username">{{username}}</ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Choisir le Titre a vendre</ion-label>
+      <ion-select [(ngModel)]="titre">
+        <ion-select-option value="18k imp">18k imp</ion-select-option>
+        <ion-select-option value="18k imp ext">18k imp ext</ion-select-option>
+        <ion-select-option value="18k raika">18k raika</ion-select-option>
+        <ion-select-option value="18k neo">18k neo</ion-select-option>
+        <ion-select-option value="18k loc">18k loc</ion-select-option>
+        <ion-select-option value="18k Grazelia">18k Grazelia</ion-select-option>
+        <ion-select-option value="21k imp">21k imp</ion-select-option>
+        <ion-select-option value="21k Ind">21k Ind</ion-select-option>
+        <ion-select-option value="21k Bakrn">21k Bakrn</ion-select-option>
+        <ion-select-option value="14k">14k</ion-select-option>
+        <ion-select-option value="Diamant">Diamant </ion-select-option>
+        <ion-select-option value="Bijoux Marq">Bijoux Marq</ion-select-option>
+      </ion-select>
+    </ion-item>
+   
+  
+  
+  
+    
+  
+    <ion-button   expand="block" padding color="tertiary" *ngIf="!id" (click)="createdProsesstock()" fill="outline">Valider</ion-button>
+    <ion-button expand="block" padding color="tertiary" *ngIf="id>=1" (click)="updateProses()" fill="outline">Modifier</ion-button>
+  
+ 
+  
+  
+  
+
+</ion-content>
+

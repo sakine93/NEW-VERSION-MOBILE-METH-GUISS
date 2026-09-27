@@ -1,0 +1,97 @@
+<ion-content padding>
+<h1 style="text-align: center;">
+  <img src="../../assets/logometh.png" style="width: 130px;" alt="">
+</h1>
+  <div class="login-section ion-padding" >
+    
+    <div class="heading ion-padding" style="display: none;">
+      <div style="display: flex; align-items: center; justify-content: center; margin-top: 23px;">
+        <div style="text-align: center;font-weight: bold;margin-left: 10px;" (click)="vieux()" >
+          <img src="../../assets/vieux.png" width="35px" height="35px" alt="" style="margin-right: 23px; border-radius: 20%;">
+          <p style="margin-top: 5px;margin-right: 23px"> Compte 1</p>
+        </div>
+        <div style="text-align: center;font-weight: bold;margin-left: 10px;"  (click)="ibou()">
+          <img src="../../assets/vieux.png"  width="35px" height="35px" alt="" style="margin-right: 23px; border-radius: 20%;">
+          <p style="margin-top: 5px;margin-right: 23px">Compte 2</p>
+        </div>
+        <div style="text-align: center;font-weight: bold;margin-left: 10px;"  (click)="fat()">
+          <img src="../../assets/vieux.png"  width="35px" height="35px" alt="" style="margin-right: 23px; border-radius: 20%;">
+          <p style="margin-top: 5px;margin-right: 23px">Compte 3</p>
+        </div>
+        <div style="text-align: center;font-weight: bold;margin-left: 10px;display: none;"  (click)="fatou()">
+          <img src="../../assets/fatou.jpeg"  width="35px" height="35px" alt="" style="margin-right: 23px; border-radius: 20%;">
+          <p style="margin-top: 5px;margin-right: 23px">Fatou</p>
+        </div>
+        <div style="text-align: center;font-weight: bold;margin-left: 10px;display: none;" (click)="admin()" >
+        <ion-icon name="cog" size="large"></ion-icon>
+          <p style="margin-top: 5px;margin-right: 23px">admin</p>
+        </div>
+      </div>
+      
+      
+    </div>
+    <div class="login-form ion-padding">
+      <div>
+      <div class="form-input">
+        <ion-icon name="person" style="margin-right: 23px;"></ion-icon>
+        <ion-item>
+          <ion-input [(ngModel)]="username" placeholder="Identifiant" autocomplete="off"></ion-input>
+        </ion-item>
+      </div>
+      <div class="form-input">
+        <ion-icon name="lock" style="margin-right: 23px;"></ion-icon>
+        <ion-item>
+          <ion-input type="tel" [(ngModel)]="password" placeholder="Mot de passe" autocomplete="off"></ion-input>
+        </ion-item>
+      </div>
+      </div>
+
+
+      <ion-row style="display: none;">
+        <div class="password-container">
+          <div class="password-dot"></div>
+          <div class="password-dot"></div>
+          <div class="password-dot"></div>
+          <div class="password-dot"></div>
+          <div class="password-dot"></div>
+          <div class="password-dot"></div>
+       </div>
+      </ion-row>
+      
+      <ion-row style="display: none;">
+        <ion-col>
+         
+            <div class="keyboard">
+              <button ion-button class="key" (click)="addNumber(1)">1</button>
+              <button ion-button class="key" (click)="addNumber(2)">2</button>
+              <button ion-button class="key" (click)="addNumber(3)">3</button>
+              <button ion-button class="key" (click)="addNumber(4)">4</button>
+              <button ion-button class="key" (click)="addNumber(5)">5</button>
+              <button ion-button class="key" (click)="addNumber(6)">6</button>
+              <button ion-button class="key" (click)="addNumber(7)">7</button>
+              <button ion-button class="key" (click)="addNumber(8)">8</button>
+              <button ion-button class="key" (click)="addNumber(9)">9</button>
+              <button ion-button class="key" (click)="addNumber(0)">0</button>
+              <button ion-button class="key" (click)="clear()"><ion-icon name="trash"></ion-icon></button>
+      
+      
+            </div>
+            <div class="password" style="display: none;">
+              <ion-input [(ngModel)]="password" (keyup)="updateDots()" type="tel" maxlength="6"></ion-input>
+      
+            </div>
+      
+          
+        </ion-col>
+      </ion-row>
+      
+    </div>
+    <div class="action-button ion-padding">
+     
+      <ion-input style="font-weight: bold;" readonly="true" [(ngModel)]="username2" placeholder="Aucun Compte Choisi ?" autocomplete="off"></ion-input>
+      <ion-button class="login-button" expand="block" shape="round" (click)="proseslogin()">Se connecter</ion-button>
+     
+      
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mes Ventes</ion-title>
+   
+    <ion-buttons slot="start">
+		
+		</ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-list>
+    <ion-item color="primary">
+      <p>Vente de {{username}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="datevente" placeholder="Cherche date"></ion-input><ion-icon name="checkmark-circle-outline" (click)="chercherdate()"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="dateventefin" placeholder="Cherche date"></ion-input><ion-icon name="checkmark-circle-outline" (click)="chercherdatefin()"></ion-icon>
+    </ion-item>
+    <ion-item-divider color="success">
+      <ion-label style="font-weight: bold;font-size: 10pt;">
+      TOTAL BIJOUX VENDU PAR {{full_name}}
+      </ion-label>
+    </ion-item-divider>
+    <ion-item-sliding *ngFor="let customer of customers">
+      
+      
+      <ion-item-divider color="danger">
+        <ion-label style="font-weight: bold;font-size: 10pt;">
+         {{customer.sale_time}} => Stock <b style="font-size: 11pt;" *ngIf="customer.item_location==18" >Ibrahima</b><b style="font-size: 11pt;" *ngIf="customer.item_location==22" > Ndeye Fatou</b><b style="font-size: 11pt;" *ngIf="customer.item_location==20" >Vieux</b><b style="font-size: 12pt;" *ngIf="customer.item_location==7" >Stock Recyclage</b><b style="font-size: 12pt;" *ngIf="customer.item_location==33" >Stock Recherche Vieux</b><b style="font-size: 12pt;" *ngIf="customer.item_location==34" >Stock Recherche Ndeye Fatou</b><b style="font-size: 12pt;" *ngIf="customer.item_location==35" >Stock Recherche Ibrahima</b>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+       
+        <ion-label style="font-weight: bold;font-size: 10pt;"> Poids Total: {{customer.totalpoids}} ( g ) <br>
+          Pieces Total: {{customer.totalpiece | number : seperatorWitSpace}} ( pieces ) <br>
+          | Total Vente : {{customer.totalvente | number : seperatorWitSpace}} FCFA </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+
+        <ion-item-option color="secondary" (click)="showCustomer(customer.sale_id)" style="margin-top: 35px;font-weight: bold;">Details</ion-item-option>
+     
+       
+      </ion-item-options>
+    </ion-item-sliding>
+  
+    <ion-item-divider color="primary">
+      <ion-label style="font-weight: bold;font-size: 10pt;">
+      TOTAL BIJOUX VENDU SUR VOTRE STOCK
+      </ion-label>
+    </ion-item-divider>
+    <ion-item-sliding *ngFor="let customerautre of customerautres">
+      <ion-item-divider color="danger">
+        <ion-label style="font-weight: bold;font-size: 10pt;">
+         VENDU PAR : <b style="font-size: 11pt;" *ngIf="customerautre.employee_id==2388" >Vieux</b><b style="font-size: 11pt;" *ngIf="customerautre.employee_id==2254" >Ndeye Fatou</b><b style="font-size: 11pt;" *ngIf="customerautre.employee_id==12599" >Ibrahima</b><b style="font-size: 11pt;" *ngIf="customerautre.employee_id==44" >Caisse</b>
+        </ion-label>
+      </ion-item-divider>
+      
+      <ion-item>
+       
+        <ion-label style="font-weight: bold;font-size: 10pt;"> Poids Total: {{customerautre.totalpoidsautre}} ( g ) <br>
+          Pieces Total: {{customerautre.totalpieceautre | number : seperatorWitSpace}} ( pieces ) <br>
+          | Total Vente : {{customerautre.totalventeautre | number : seperatorWitSpace}} FCFA </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+
+        <ion-item-option color="secondary" (click)="showCustomer(customer.sale_id)" style="margin-top: 35px;font-weight: bold;">Details</ion-item-option>
+     
+       
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item *ngFor="let customerautretotal of customerautretotals">
+    <ion-card   style="background-color: #fff;width: 100%;">
+      <ion-card-header>
+        <ion-card-subtitle>Recap Bilan des ventes</ion-card-subtitle>
+        <ion-card-subtitle><b style="font-weight: bold;font-size: 13pt;color: red;">{{customerautretotal.totalpoidsautrevendu | number : seperatorWitSpace}} (g)</b></ion-card-subtitle>
+        <ion-card-subtitle><b style="font-weight: bold;font-size: 13pt;color: red;">{{customerautretotal.totalpieceautrevendu | number : seperatorWitSpace}} (pieces)</b></ion-card-subtitle>
+        <ion-card-title style="text-align: center;">{{customerautretotal.totalventeautrevendu  | number : seperatorWitSpace}} FCFA</ion-card-title>
+      
+      </ion-card-header>
+    
+    </ion-card>
+    </ion-item>
+  </ion-list>
+
+
+  
+ 
+</ion-content>
+<ion-footer class="footer">
+  
+  <ion-grid>
+    <ion-row>
+  
+       <ion-col style="text-align: center"><ion-button (click)="annuler()" expand="block" shape="round" color="danger"><ion-icon name="close"> </ion-icon> Retour au menu </ion-button></ion-col>
+   
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>

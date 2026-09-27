@@ -1,0 +1,23 @@
+.upload-box {
+    border: 2px dashed #ccc;
+    height: 180px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .error-box {
+    border: 2px dashed #e74c3c;
+    background: #fff5f5;
+  }
+  
+  .required {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .error-text {
+    font-size: 13px;
+    margin-top: 6px;
+  }

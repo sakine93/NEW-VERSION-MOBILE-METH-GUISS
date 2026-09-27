@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Parametre Ventes (g)</ion-title>
+    <ion-buttons slot="start">
+			<ion-menu-button menu="main-menu"></ion-menu-button>
+		</ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+   
+    
+    
+    
+     <ion-item>
+       <ion-label>Choisir Titre </ion-label>
+       <ion-select [(ngModel)]="type_or">
+         <ion-select-option value="18k imp">18k imp</ion-select-option>
+         <ion-select-option value="18k imp ex">18k imp ext</ion-select-option>
+         <ion-select-option value="18k imp si">18k imp simple</ion-select-option>
+         <ion-select-option value="18k rai">18k raika</ion-select-option>
+         <ion-select-option value="18k Neo">18k neo</ion-select-option>
+         <ion-select-option value="18k loc">18k loc</ion-select-option>
+         <ion-select-option value="18k gra">18k Grazelia</ion-select-option>
+         <ion-select-option value="21k imp">21k imp</ion-select-option>
+         <ion-select-option value="21k ind">21k Ind</ion-select-option>
+         <ion-select-option value="21k bakh">21k Bakrn</ion-select-option>
+         <ion-select-option value="14k">14k</ion-select-option>
+         <ion-select-option value="Diamant">Diamant </ion-select-option>
+         <ion-select-option value="Bijoux Marq">Bijoux Marq</ion-select-option>
+       </ion-select>
+     </ion-item>
+
+     <ion-item>
+      <ion-label position="floating" >  </ion-label>
+      <ion-input [(ngModel)]="prix_vente_g" placeholder="Prix de vente grammage"></ion-input>
+     
+    </ion-item>
+    
+   
+   
+   
+     
+   
+    
+     <ion-button (click)="updategrammage()" expand="block" padding color="tertiary"   fill="outline">Mettre a jour</ion-button>
+   
+  
+   </div>
+   
+   
+ 
+ </ion-content>
+
+
+
+
+
+
+
+

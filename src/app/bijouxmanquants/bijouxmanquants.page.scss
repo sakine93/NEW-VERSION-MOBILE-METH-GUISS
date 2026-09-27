@@ -1,0 +1,21 @@
+.zoomed-image {
+    width: 200px; /* Ajustez la taille selon vos besoins */
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+
+  .preview-slides {
+    margin-top: 20%;
+    background: #e6e6e6;
+  
+    img {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+  }

@@ -1,0 +1,247 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Titre</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Annuler </ion-button>
+      
+    </ion-buttons>
+  
+ 
+  </ion-toolbar>
+  <ion-item lines="none">
+
+		
+    <ion-label>
+      
+        <ion-item  style="display: none;">
+        <ion-label position="floating" >  </ion-label>
+        <ion-input [(ngModel)]="codeacces"></ion-input>
+        <ion-input [(ngModel)]="item_location"></ion-input>
+      </ion-item>
+    </ion-label>
+    
+   
+
+   
+
+</ion-item>
+
+
+<div id="container" style="margin-top: -10px;">          
+  <ion-slides pager="false" [options]="sliderConfig" style="background-image:url('../../assets/back.jpg');background-repeat: no-repeat;background-size: cover;">
+    <ion-slide class="categories">
+
+      <ion-card color="primary" style="width: 250px;" (click)="caisse()">
+        <ion-card-header>
+          <ion-card-title style="font-size: 15pt;"> VENTES MON  STOCK </ion-card-title>
+          
+        </ion-card-header>
+      
+        
+      </ion-card>
+  
+  
+
+</ion-slide>
+    <ion-slide class="categories">
+      
+       
+     
+
+      <ion-card color="secondary" style="width: 250px;" (click)="seg4()">
+        <ion-card-header>
+          <ion-card-title style="font-size: 15pt;"> STOCK DETAILLES</ion-card-title>
+       
+        </ion-card-header>
+      
+       
+      </ion-card>
+     
+</ion-slide>
+
+<ion-slide class="categories">
+      
+       
+     
+
+  <ion-card color="secondary" style="width: auto;" (click)="seg6()">
+    <ion-card-header>
+      <ion-card-title style="font-size: 15pt;"> STOCK TRANSFERES </ion-card-title>
+   
+    </ion-card-header>
+  
+   
+  </ion-card>
+ 
+</ion-slide>
+    <ion-slide class="categories">
+          <ion-card color="danger" style="width: 250px;" (click)="seg2()">
+            <ion-card-header>
+              <ion-card-title style="font-size: 15pt;">STOCK BOUTIQUE</ion-card-title>
+             
+            </ion-card-header>
+          
+           
+          </ion-card>
+    </ion-slide>
+
+
+    <ion-slide class="categories" >
+      <ion-card color="warning" style="width: 250px;" (click)="seg3()">
+        <ion-card-header>
+          <ion-card-title style="font-size: 15pt;">STOCK RANGOU</ion-card-title>
+         
+        </ion-card-header>
+      
+     
+      </ion-card>
+</ion-slide>
+  </ion-slides>
+
+
+ 
+</div>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div [ngSwitch]="pet">
+    <ion-list class="home-content"  *ngSwitchCase="'caisse'" >
+      <div class="ion-padding" style="background-color: green;color: #fff;">Mon Stock</div>
+    <ion-list style="background-color: #fcb800;">
+      
+      <ion-item (click)="presentAlertRadio(customer.item_id)" *ngFor="let customer of customerstockb">
+        <ion-avatar slot="end">
+          <ion-icon name="cart" size="large"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h1>{{customer.name}} / {{customer.item_id}} </h1>
+          <h2>{{customer.type_or}}</h2>
+          <h2>Poids restant : <b class="badge" style="color: red;">{{customer.poids}} (g)</b></h2>
+          <h2> <b class="badge" style="color: rgb(22, 170, 42);color: rgb(74, 192, 63);">En stock</b></h2>
+        </ion-label>
+      </ion-item>
+     
+    
+    </ion-list>
+
+    </ion-list>
+
+    <ion-list class="home-content"  *ngSwitchCase="'stocb'" >
+      <div class="ion-padding" style="background-color: green;color: #fff;">Stock Boutique</div>
+      <ion-list style="background-color: #fcb800;">
+        <ion-item (click)="presentAlertRadio(customer.item_id)" *ngFor="let customer of customers">
+          <ion-avatar slot="end">
+            <ion-icon name="cart" size="large"></ion-icon>
+          </ion-avatar>
+          <ion-label>
+            <h1>{{customer.name}}</h1>
+            <h2>{{customer.type_or}}</h2>
+            <h2>Poids restant : <b class="badge" style="color: red;">{{customer.poids}} (g)</b></h2>
+            <h2> <b class="badge" style="color: rgb(22, 170, 42);color: rgb(74, 192, 63);">En stock</b></h2>
+          </ion-label>
+        </ion-item>
+       
+      
+      </ion-list>
+      
+      </ion-list>
+
+      <ion-list class="home-content"  *ngSwitchCase="'puppies'" >
+        <div class="ion-padding" style="background-color: green;color: #fff;">Stock Rangou</div>
+        <ion-list style="background-color: #fcb800;">
+          <ion-item (click)="presentAlertRadio(customer.item_id)" *ngFor="let customer of customersrangou">
+            <ion-avatar slot="end">
+              <ion-icon name="cart" size="large"></ion-icon>
+            </ion-avatar>
+            <ion-label>
+              <h1>{{customer.name}}</h1>
+              <h2>{{customer.type_or}}</h2>
+              <h2>Poids restant : <b class="badge" style="color: red;">{{customer.poids}} (g)</b></h2>
+              <h2> <b class="badge" style="color: rgb(22, 170, 42);color: rgb(74, 192, 63);">En stock</b></h2>
+            </ion-label>
+          </ion-item>
+         
+        
+        </ion-list>
+        
+        </ion-list>
+
+        <ion-list class="home-content"  *ngSwitchCase="'star'" >
+          <div class="ion-padding" style="background-color: green;color: #fff;">Stock Vente Detaillé</div>
+          <ion-list style="background-color: #fcb800;">
+            <ion-item (click)="bilalvalide(customer.item_id)" *ngFor="let customer of customerstockdetaille">
+              <ion-avatar slot="end">
+                <ion-icon name="cart" size="large"></ion-icon>
+              </ion-avatar>
+              <ion-label>
+                <h2 style="font-weight: bold;">{{customer.category}} / {{customer.type_or}}</h2>
+                <h3 style="font-weight: bold;">REF : {{customer.item_id}} / {{customer.modele}}</h3>
+               
+                <h2>Poids : <b class="badge" style="color: red;">{{customer.poids}} (g)</b> | <b> Nbre {{customer.quantity}} (p)</b></h2>
+ 
+                
+              </ion-label>
+            </ion-item>
+           
+          
+          </ion-list>
+          
+          </ion-list>
+
+          <ion-list class="home-content"  *ngSwitchCase="'strans'" >
+            <div class="ion-padding" style="background-color: green;color: #fff;">STOCKS TRANSFERTS</div>
+            <ion-list style="background-color: #dfcb95;">
+              <ion-searchbar color="warning" style="color: #000;font-weight: bold;"   placeholder="Chercher Ref / Cat  " [(ngModel)]="term" animated="true"></ion-searchbar>
+              <ion-item (click)="bilalvalidesg(customer.name,customer.item_id,customer.poids,customer.codeboutique,customer.quantity)" *ngFor="let customer of customerstocktransferts | filter:term">
+                <ion-avatar slot="end">
+                  <ion-icon name="cart" size="large"></ion-icon>
+                </ion-avatar>
+                <ion-label>
+                  <h2 style="font-weight: bold;">{{customer.name}} / {{customer.type_or}} | <b style="color: red;">  {{customer.codeboutique}}</b> </h2>
+                  <h3 style="font-weight: bold;">REF : {{customer.item_id}} / {{customer.modele}}</h3>
+                  <h3 style="font-weight: bold;">Pouds : {{customer.poids}} (g) / {{customer.quantity}} (p)</h3>
+                
+   
+                  
+                </ion-label>
+              </ion-item>
+              <ion-item (click)="bilalvalide2(customer.name,customer.item_id,customer.poids,customer.codeboutique,customer.quantity)" *ngFor="let customer of customerstocktransfertsant | filter:term">
+                <ion-avatar slot="end">
+                  <ion-icon name="cart" size="large"></ion-icon>
+                </ion-avatar>
+                <ion-label>
+                  <h2 style="font-weight: bold;">{{customer.name}} / {{customer.type_or}} | <b style="color: red;">  {{customer.codeboutique}}</b> </h2>
+                  <h3 style="font-weight: bold;">REF : {{customer.item_id}} / {{customer.modele}}</h3>
+                  <h3 style="font-weight: bold;">Pouds : {{customer.poids}} (g) / {{customer.quantity}} (p)</h3>
+                
+   
+                  
+                </ion-label>
+              </ion-item>
+             
+            
+            </ion-list>
+            
+            </ion-list>
+
+        
+  </div>
+ 
+</ion-content>
+
+<ion-footer class="footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col style="text-align: center"><ion-button    (click)="retouranull()"  expand="block" shape="round" color="danger"><ion-icon name="close"> </ion-icon> Annuler </ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

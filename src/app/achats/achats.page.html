@@ -1,0 +1,94 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-button fill="clear" (click)="acceuil()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+      <b>({{ username }})</b>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="danger" (click)="proseslogout()">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-item lines="none">
+    <ion-label>
+      <h2>ACHATS OR</h2>
+      <h3 *ngIf="totalachats > 0">
+        {{ totalachats | number:'1.0-0' }} FCFA
+      </h3>
+    </ion-label>
+  </ion-item>
+</ion-header>
+
+<ion-content>
+
+  <!-- AJOUT DES TITRES (LOGIQUE CONSERVÉE) -->
+  <div class="titres-wrap">
+    <div class="titres-head">
+      <div>Ajouter des titres d’achat</div>
+      <ion-button size="small" fill="outline" (click)="addCustomer()">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Ajouter
+      </ion-button>
+    </div>
+
+    <div class="titres-list">
+      <ion-chip *ngFor="let t of titres" (click)="addTitre(t)">
+        <ion-icon name="pricetag" color="warning"></ion-icon>
+        <ion-label>{{ t }}</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+
+  <!-- LISTE DES ACHATS -->
+  <ion-list>
+    <ion-item-sliding *ngFor="let achat of achats">
+
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="delCustomers(achat.achat_id)">
+          Annuler
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item-divider color="light">
+        {{ achat.titre }}
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label>
+          <p>Poids : {{ achat.poids }} g</p>
+          <p>Prix : {{ achat.amount }} FCFA</p>
+        </ion-label>
+
+        <ion-button slot="end" color="success"
+          (click)="updateAchat(achat.achat_id, achat.titre)">
+          Modifier
+        </ion-button>
+      </ion-item>
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- CLIENT (AJOUTÉ SANS CASSER) -->
+  <ion-button expand="block" color="primary" (click)="showClient()">
+    👤 Renseigner le client
+  </ion-button>
+
+  <ion-text color="success" *ngIf="clientName">
+    Client : <b>{{ clientName }}</b>
+  </ion-text>
+
+  <!-- ENVOI CAISSE -->
+  <ion-button expand="block"
+    color="danger"
+    (click)="createdProses()"
+    *ngIf="totalachats > 0">
+    📤 Envoyer à la caisse
+  </ion-button>
+
+</ion-content>

@@ -1,0 +1,196 @@
+
+<ion-header class="ion-no-border">
+	<ion-toolbar>
+		<ion-buttons slot="start" style="margin-top: 40px;">
+			<ion-menu-button class="bordered"  fill="solid" menu="main-menu" size="large" id="menu"></ion-menu-button>
+  
+     
+      <ion-input disabled="true" *ngIf="userLocation" type="text"><ion-icon name="navigate" style="color: red;" size="large" id="text"></ion-icon> <b style="font-size: 12pt;">{{userLocation.locality}},{{userLocation.countryName}} - RUE : {{userLocation.thoroughfare}}</b> </ion-input>
+  
+    </ion-buttons>
+    
+  
+
+   
+	</ion-toolbar>
+
+	<ion-item lines="none">
+
+		
+        <ion-segment [(ngModel)]="pet" >
+          <ion-segment-button value="kittens" style="font-weight: bold;" checked>
+            Mon Compte
+          </ion-segment-button>
+          <ion-segment-button value="puppies" style="width: auto;" style="font-weight: bold;">
+            <ion-badge color="danger">0</ion-badge> Mes Transferts
+          </ion-segment-button>
+        </ion-segment>
+     
+		
+
+	</ion-item>
+
+</ion-header>
+
+  <ion-content>
+
+    
+
+    <div [ngSwitch]="pet">
+<ion-list class="home-content"  *ngSwitchCase="'puppies'" >
+
+  <div class="home-container">
+      <div class="home-top">
+         
+
+          <!-- NO INMUNE -->
+          <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content
+              pullingIcon="arrow-dropdown"
+              pullingText="Pull to refresh"
+              refreshingSpinner="circles"
+              refreshingText="Refreshing...">
+            </ion-refresher-content>
+          </ion-refresher>
+          <ion-card *ngFor="let customer of customers">
+
+            <ion-item color="tertiary" lines="none">
+                <ion-icon name="megaphone" slot="start"></ion-icon>le {{customer.date}}
+                <ion-icon name="call" slot="end"  (click)="opencontact(customer.full_name,customer.phone_number,customer.adresse)"></ion-icon>
+            </ion-item>
+            <ion-item color="tertiary" lines="none">
+                <ion-label>
+   <ion-badge color="danger">{{customer.destination}}</ion-badge> <ion-spinner name="dots"></ion-spinner>
+                <ion-icon style="float: right;margin-top: 15px;font-size: 20pt;" name="home" slot="end"></ion-icon>
+              </ion-label>
+            </ion-item>
+          
+        </ion-card>
+
+
+        
+         
+        
+      </div>
+      <div class="home-footer">
+          <div  class="info-link" expand="block" style="display: none;">
+              <img class="button-icon filter-black" src="/assets/icon/icon-info.svg">
+              <ng-container i18n="@@coronavirusInfoButton">Información sobre el coronavirus</ng-container>
+          </div>
+          <p class="logo-home">
+              <img src="">
+          </p>
+      </div>
+
+  </div>
+
+</ion-list>
+
+<ion-list class="home-content"  *ngSwitchCase="'kittens'">
+  <div class="home-container">
+      <div class="home-top">
+          <div class="result"  style="border: 2px solid chocolate;">
+              <div class="result__col-qr">
+                <qrcode  [qrdata]="phone_number" [size]="256"  [level]="'M'" (click)="addCustomer()"></qrcode>
+              </div>
+              <div class="result__col-texts">
+                  <p class="result__title" style="color: chocolate;"><ion-icon name="contact"></ion-icon> Info Vendeur</p>
+                  <p class="result__name">{{username}}</p>
+                  <p class="result__title" style="color: chocolate;"><ion-icon name="pricetag"></ion-icon> Total Poids</p>
+                  <h3 class="result__status">{{totalstockpoids  | number : seperatorWitSpace}} (g)</h3>
+                  <ion-input  style="display: none;"  type="text" [(ngModel)]="codeacces">{{codeacces}}</ion-input>
+                  <ion-input  style="display: none;" [(ngModel)]="item_location"></ion-input>
+                  <p class="result__title" style="color: chocolate;"><ion-icon name="pricetag"></ion-icon> Total Pieces </p>
+                  <h3 class="result__status">{{totalstockpiece  | number : seperatorWitSpace}} (p)</h3>
+                 
+              </div>
+              
+          </div>
+
+          <!-- NO INMUNE -->
+         
+           
+             
+
+
+              <!-- PENDIENTE -->
+             
+
+              <div class="main-options">
+                <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+                  <ion-refresher-content
+                    pullingIcon="arrow-dropdown"
+                    pullingText="Pull to refresh"
+                    refreshingSpinner="circles"
+                    refreshingText="...">
+                  </ion-refresher-content>
+                </ion-refresher>
+
+                  
+                
+               
+              
+                <ion-list>
+    
+   
+                  <ion-item-sliding *ngFor="let customer of customers">
+                    
+                    <ion-item-options side="start">
+                      <ion-item-option style="margin-top: 35px;font-weight: bold;" color="danger" (click)="delCustomers(customer.num_sale)">Annuler</ion-item-option>
+                    </ion-item-options>
+                    <ion-item-divider color="danger">
+                      <ion-label style="font-weight: bold;font-size: 8pt;">
+                        <ion-icon name="qr-scanner" size="small"></ion-icon>REF : {{customer.item_id}} - {{customer.name}} - <b style="color: blueviolet;">|</b> => {{customer.category}} ) =><b style="font-size: 12pt;" *ngIf="customer.location_id==7" >Stock Boutique</b><b style="font-size: 12pt;" *ngIf="customer.location_id==10" >Stock adji</b><b style="font-size: 12pt;" *ngIf="customer.location_id==35" >Ahmeth Sy</b><b style="font-size: 12pt;" *ngIf="customer.location_id==18" >Beukheury</b><b style="font-size: 12pt;" *ngIf="customer.location_id==25" >Dame Diallo</b><b style="font-size: 12pt;" *ngIf="customer.location_id==28" >Stock Issa </b><b style="font-size: 12pt;" *ngIf="customer.location_id==23" >Stock Mamadou</b><b style="font-size: 12pt;" *ngIf="customer.location_id==26" >Modou Sylla</b><b style="font-size: 12pt;" *ngIf="customer.location_id==27" >Saliou Niang</b><b style="font-size: 12pt;" *ngIf="customer.location_id==8" >Serigne Macke</b><b style="font-size: 12pt;" *ngIf="customer.location_id==24" >Pape Seye</b>
+                      </ion-label>
+                    </ion-item-divider>
+                    <ion-item>
+                     
+                      <ion-label style="font-weight: bold;font-size: 8pt;"> Poids : {{customer.poids}} ( g ) | Pieces   : {{customer.quantity}} </ion-label>
+                    </ion-item>
+              
+                    <ion-item-options side="end">
+              
+                      <ion-item-option style="display: none;" color="secondary" (click)="showCustomer(customer.num_sale,customer.name,customer.item_unit_price)">Voir</ion-item-option>
+                   
+                      <ion-item-option (click)="updateCustomer(customer.num_sale,customer.name,customer.item_unit_price,customer.prix_du_g,customer.poids)" style="margin-top: 35px;font-weight: bold;" color="success">Prix de vente</ion-item-option>
+              
+                    </ion-item-options>
+                  </ion-item-sliding>
+                </ion-list>
+       
+             
+                  
+              
+         
+                 
+                
+                  
+                 
+              </div>
+             
+
+         
+      </div>
+      
+
+  </div>
+
+</ion-list>
+</div>
+<ion-fab *ngIf="this.pet=='kittens'" vertical="bottom" horizontal="end" slot="fixed" (click)="ajoutItem()">
+  <ion-fab-button color="danger">
+    <ion-icon name="add-circle"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>
+<ion-footer class="ion-no-border footer-shadow" #footer>
+  <ion-toolbar class="footer-app" (click)="detectPosition()" color="warning">
+     
+      <div  class="home-footer-ble home-footer-ble--disabled">
+          <h6 class="home-footer-ble__title" style="font-weight: bold;font-weight: bold;font-size: 15pt;text-align: center;"> 
+            <ion-icon name="refresh" style="font-size: 15pt;font-weight: bold;margin-top: 10px;" size="large"></ion-icon>  TRANSFERER MES BIJOUX !
+           </h6>
+      </div>
+     
+  </ion-toolbar>
+</ion-footer>

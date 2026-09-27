@@ -1,0 +1,364 @@
+#menu{
+  color: #000;
+}
+
+#text{
+  animation: Text 1s infinite;
+}
+@keyframes Text{
+  0%{opacity: 1;}
+  50%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+
+.monnaie{
+margin: 0;
+margin-left: 70px;
+right: 0;
+color: saddlebrown;
+}
+ion-header {
+
+    ion-toolbar, ion-item {
+      --background: #d7a700;
+      background: #d7a700;
+      padding: 0 10px;
+    }
+ 
+  
+    ion-toolbar {
+      .bordered {
+        --border-radius: 10px;
+        --box-shadow: 5px 5px 10px #d7a700, -5px -5px 10px #d7a700;
+      }
+    }
+  
+    ion-item {
+      h3 {
+        font-weight: 700;
+        font-size: 14px;
+      }
+  
+      p {
+        font-weight: 500;
+        font-size: 14px;
+      }
+  
+      ion-avatar {
+        --border-radius: 40%;
+      }
+    }
+  
+  }
+
+  .result{
+    $result: &;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 8px 0;
+  
+    &__col{
+      &-qr{
+        width: calc(50%);
+  
+      }
+      &-texts{
+        width: calc(50% - 4px);
+      }
+    }
+    
+    &__qr{
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+    &__title{
+      font-size: 14px;
+      line-height: 16px;
+      color: #9b9b9b;
+      font-weight: 300;
+      margin: 0;
+      @media (min-width: 321px) {
+        font-size: 18px;
+        line-height: 22px;
+      }
+    }
+    &__name{
+      font-size: 18px;
+      line-height: 20px;
+      color: #000;
+      margin: 0 0 12px 0 ;
+    }
+    &__status{  
+      font-weight: bold;
+      margin: 0;
+      line-height: 1;
+      font-size: 14px;
+      line-height: 16px; 
+      @media (min-width: 321px) {
+        font-size: 18px;
+        line-height: 22px;
+      }   
+    }
+    &__vigente{
+      color: #000;
+      margin: 12px 0 0 0 ;
+      line-height: 1;
+      font-size: 11px;
+      line-height: 14px; 
+      @media (min-width: 321px) {
+        font-size: 16px;
+        line-height: 20px;
+      }   
+    }
+  
+    &--quarentine{
+      #{ $result }{
+        &__status{
+          color: #ffca08;
+          font-size: 18px;
+        }
+      }
+    }
+    &--infected{
+      #{ $result }{
+        &__status{
+          color: #c80f2e;
+          font-size: 18px;
+          text-transform: uppercase;
+        }
+      }
+    }
+    &--ok{
+      #{ $result }{
+        &__status{
+          color: #61bc7c;  
+          font-size: 18px;
+          text-transform: uppercase;
+        }
+      }
+    }
+    &--immune{
+      background-color: #D9F4FD;
+      border-radius: 10px;
+      
+      img{
+        mix-blend-mode: multiply;
+      }
+      #{ $result }{
+        &__status{
+          color: #00AAE4;  
+          font-size: 18px;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+  
+  .qrcode {
+  
+    img {
+      min-height: 160px;
+    }
+  
+    canvas, img {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 500px;
+      max-height: 500px;
+    }
+  
+  }
+  
+
+  
+  .appointment{
+    padding: 12px 16px;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: flex-start;
+    margin: 0 0 24px 0;
+    &__icon{
+      width: 24px;
+      margin: 0 12px 0 0;
+    }
+    &__text{
+      font-size: 14px;  
+      line-height: 16px;   
+      font-weight: 300;
+      margin: 0; 
+      @media (min-width: 321px) {
+        font-size: 18px;
+        line-height: 22px;
+      }
+    }
+  }
+  
+  .info-link {
+    margin: 8px 0 0 0;
+    padding: 0 16px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    @media (min-width: 321px) {
+      font-size: 18px;
+      line-height: 22px;
+    }
+    img{
+      display: block;
+      margin: 0 10px 0 0;
+      width: 23px;
+    }
+  }
+  
+  .share-link {
+    margin: 8px 0 0 0;
+    padding: 0 16px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;  
+    color: #000;  
+    @media (min-width: 321px) {
+      font-size: 18px;
+      line-height: 22px;
+    }
+    img{
+      display: block;
+      margin: 0 8px 0 0;
+      width: 25px;
+    }
+  }
+  
+  .alert-info{
+    position: relative;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background-color: #000;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    margin: 24px 0 24px 0;
+  
+    &__icon{
+      width: 12px;
+      margin: 0 12px 0 0;
+    }
+    &__text{
+      font-size: 14px;  
+      line-height: 15px;   
+      font-weight: 300;
+      margin: 0; 
+      padding: 0 16px;
+      @media (min-width: 321px) {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  
+    &__badge{
+      font-size: 12px;
+      line-height: 16px;
+      width: 16px;
+      height: 16px;
+      background-color: #c80f2e;
+      color: #fff;
+      text-align: center;
+      border-radius: 50%;
+      position: absolute;
+      top: 25%;
+      left: 26px;
+      @media (min-width: 321px) {
+        font-size: 13px;
+      }    
+    }
+  
+  }
+  
+  .logo-home{
+    margin: 20px 0 0 0;
+    text-align: center;
+    img{
+      display: inline-block;
+      width: 40%;
+      height: auto;
+      max-width: 300px;
+    }
+  }
+  
+  .home-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .home-top{
+    flex: 1 0 auto; 
+  }
+  .home-footer{
+    flex: none;
+  }
+  
+  .home-footer-ble{
+    $footer: &;
+  
+    padding: 0 20px 0 30px;
+  
+    
+    &__title{  
+      font-weight: bold;
+      margin: 0 0 4px 0;
+      line-height: 1;
+      font-size: 12px;
+      line-height: 18px; 
+      @media (min-width: 321px) {
+        font-size: 16px;
+        line-height: 20px;
+      }   
+    }
+    &__text{  
+      margin: 0;
+      line-height: 1;
+      font-size: 10px;
+      line-height: 12px; 
+      @media (min-width: 321px) {
+        font-size: 14px;
+        line-height: 18px;
+      }   
+    }
+  
+    &--enabled{
+      background: url(/assets/icons/svg/check-verde.svg) no-repeat 0 2px;
+      background-size: 18px 12px;
+  
+      #{ $footer }{
+        &__title{
+          color: #61bc7c;
+        }
+      }
+  
+    }
+    &--disabled{
+    
+      animation: Text 1s infinite;
+      @keyframes Text{
+        0%{opacity: 1;}
+        50%{opacity: 0;}
+        100%{opacity: 1;}
+      }
+      #{ $footer }{
+        &__title{
+          color: #c80f2e;
+        }
+      }
+    }
+  
+  }
+  
+  

@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+    
+    </ion-buttons>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <img  style="width: 100%;" *ngIf="pic_filename!=''"   class="main-options__image" src="https://mobile.bijouteriess.com/server_api/uploads/{{pic_filename}}" alt="PAS DE PHOTO">
+     
+  </div>
+  
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col size="12">
+      <ion-button (click)="retouranull()" expand="full" color="danger"><ion-icon name="close"></ion-icon> Quitter</ion-button>
+    </ion-col>
+   
+  </ion-row>
+</ion-footer>

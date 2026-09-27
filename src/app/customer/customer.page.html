@@ -1,0 +1,312 @@
+<ion-header color="danger" style="background-color:#ccc;border: 1px solid #000;">
+
+  <ion-toolbar color="primary">
+<p><br></p>
+    <ion-buttons slot="start" (click)="menuApp()" style="margin-top: 10px;margin-left: 10px;">
+     <ion-icon name="menu" size="large"></ion-icon>
+    </ion-buttons>
+    <ion-buttons  slot="end">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  
+    <ion-title style="font-weight: bold;text-align: center;color: #fcb800;">(BSS / S.Saliou) <br></ion-title>
+    <ion-buttons slot="end"  (click)="faireinv()" style="margin-top: 10px;">
+      <ion-button fill="clear" >
+        <ion-icon slot="icon-only" name="barcode"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <style>
+      @keyframes scroll {
+          0% {
+              transform: translateX(100%);
+          }
+          100% {
+              transform: translateX(-100%);
+          }
+      }
+  
+      .scrolling-text {
+          display: inline-block;
+          white-space: nowrap;
+          overflow: hidden;
+          animation: scroll 10s linear infinite;
+      }
+  </style>
+  
+  
+  <b style="color: #fcb800;">
+    <br>
+      <span class="scrolling-text">Bienvenue {{full_name}}</span>
+  </b>
+  
+  </ion-toolbar>
+
+  <ion-input  style="display: none;" [(ngModel)]="user_id"></ion-input>
+  <ion-input  style="display: none;" [(ngModel)]="phone_number"></ion-input>
+  <ion-input style="display: none;" [(ngModel)]="type_piece"></ion-input>
+ 
+  <style>
+    .card-image {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      vertical-align: top;
+      float: right;
+      margin-left: 10px;
+    }
+  </style>
+  
+  <ion-card style="background-color: #03224c; margin-top: 1px;">
+    <ion-card-header>
+      <img class="card-image"   *ngIf="username!=''" src="../../assets/logometh.png">
+      <ion-card-subtitle style="color: #fff;">Dernier Montant lancé </ion-card-subtitle>
+      <ion-card-title style="color: #fff;">{{totalvente | number:seperatorWitSpace}} (FCFA)</ion-card-title>
+      <ion-card-subtitle style="color: #fff;">Poids: {{nbrepoids | number:seperatorWitSpace}} (g)</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  
+  
+  
+  
+  <div class="ion-padding" style="display: none;">
+    
+    <ion-segment mode="ios" [(ngModel)]="tontineType" style="display: none;">
+      <ion-segment-button value="argent" >
+        <ion-icon name="cash-outline"></ion-icon>
+        <ion-label>Tontine Argent</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="bien">
+        <ion-icon name="home-outline"></ion-icon>
+        <ion-label>Tontine Bien</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="transactions" style="display: none;">
+        <ion-icon name="home-outline"></ion-icon>
+        <ion-label>Mes Transactions</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mestontines" style="display: none;">
+        <ion-icon name="home-outline"></ion-icon>
+        <ion-label>Mes Tontines</ion-label>
+      </ion-segment-button>
+
+      
+    </ion-segment>
+    
+  
+  </div>
+
+ 
+
+
+
+
+</ion-header>
+<ion-header style="display: none;">
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons style="display: none;" slot="end" *ngIf="first_name == ''">
+      <ion-button fill="clear" (click)="profil()">
+        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons>
+      <ion-button fill="clear" style="display: none;">
+        <ion-icon slot="icon-only" name="qr-code"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="font-weight: bold;text-align: center;">TEK TEGUI</ion-title>
+  
+   
+  
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    
+
+  
+
+   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div [ngSwitch]="pet">
+    <ion-list class="home-content"  *ngSwitchCase="'puppies'" >
+      
+ 
+  <ion-list style="margin-top: 100px;">
+   
+   
+    <ion-item-sliding *ngFor="let customer of customers">
+      
+      <ion-item-options side="start">
+        <ion-item-option style="margin-top: 35px;font-weight: bold;" color="danger" (click)="delCustomers(customer.num_sale)">Annuler</ion-item-option>
+      </ion-item-options>
+      <ion-item-divider color="danger">
+        <ion-label style="font-weight: bold;font-size: 8pt;">
+          <ion-icon name="qr-scanner" size="small"></ion-icon> {{customer.name}} - ({{customer.type_or}} - <b style="color: blueviolet;">|</b> => {{customer.category}} ) =><b style="font-size: 12pt;" *ngIf="customer.location_id==33" >Habib</b><b style="font-size: 12pt;" *ngIf="customer.location_id==7" >solution</b><b style="font-size: 12pt;" *ngIf="customer.location_id==8" >marie</b>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+       
+        <ion-label style="font-weight: bold;font-size: 8pt;"> Poids : {{customer.poids}} ( g ) | Prix(g) : {{customer.item_unit_price}} </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+
+        <ion-item-option style="display: none;" color="secondary" (click)="showCustomer(customer.num_sale,customer.name,customer.item_unit_price)">Voir</ion-item-option>
+     
+        <ion-item-option (click)="updateCustomer(customer.num_sale,customer.name,customer.item_unit_price,customer.prix_vente_g,customer.poids)" style="margin-top: 35px;font-weight: bold;" color="success">Prix de vente</ion-item-option>
+
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  
+</ion-list>
+
+<ion-list class="home-content"  *ngSwitchCase="'caisse'" >
+  
+
+  <ion-list style="margin-top: 10px;">
+
+      <ion-card *ngIf="nbrepiece==0"  style="background-color: #fff;margin-top: 20px;" >
+       
+      <ion-card-content>
+        <h2 style="text-align: center;color: #000;font-weight: bold;"><ion-icon name="cart" size="large"></ion-icon>  Aucun bijoux en vente ?</h2> 
+      </ion-card-content>
+    </ion-card>
+    <ion-item-sliding *ngFor="let customer of customers">
+     
+      
+
+      <ion-item-options side="start">
+        <ion-item-option style="margin-top: 35px;font-weight: bold;" color="danger" (click)="delCustomers(customer.num_sale)">Annuler</ion-item-option>
+      </ion-item-options>
+      <ion-item-divider style="background-color: #03224c;color: #fcb800;">
+        {{customer.name}} - ({{customer.type_or}}) => <b style="font-size: 12pt;" *ngIf="customer.location_id==20" >Stock Vieux</b><b style="font-size: 12pt;" *ngIf="customer.location_id==22" >Ndeye Fatou</b><b style="font-size: 12pt;" *ngIf="customer.location_id==18" >Stock Ibrahima</b><b style="font-size: 12pt;" *ngIf="customer.location_id==7" >Stock Recyclage</b><b style="font-size: 12pt;" *ngIf="customer.location_id==33" >Stock Recherche Vieux</b><b style="font-size: 12pt;" *ngIf="customer.location_id==34" >Stock Recherche Ndeye Fatou</b><b style="font-size: 12pt;" *ngIf="customer.location_id==35" >Stock Recherche Ibrahima</b>
+      </ion-item-divider>
+      <ion-item style="background-color: #fcb800">
+        <ion-icon  name="image" slot="start"  (click)="voirimage(customer.pic_filename,customer.item_ids)"></ion-icon>
+        <ion-label>
+          <h2 style="font-weight: bold;color: #000;">CAT : {{customer.category}}</h2>
+          <h2 style="font-weight: bold;color: #000;">REF : {{customer.item_ids}}</h2>
+          <h2 style="font-weight: bold;color: #000;"  *ngIf="customer.item_unit_price==0">PRIX : <b  *ngIf="customer.item_unit_price==0" id="text"> {{customer.item_unit_price | number : seperatorWitSpace}}</b> FCFA</h2>
+          <h2 style="font-weight: bold;color: #000;" *ngIf="customer.item_unit_price>0">PRIX : <b  *ngIf="customer.item_unit_price>0"> {{customer.item_unit_price | number : seperatorWitSpace}}</b> FCFA</h2>
+          <p style="font-weight:bold;color: #000;">Poids :  {{customer.poids}} ( g )</p>
+        </ion-label>
+      </ion-item>
+   
+    
+      
+
+      <ion-item-options side="end">
+
+        <ion-item-option style="display: none;" color="secondary" (click)="showCustomer(customer.num_sale,customer.name,customer.item_unit_price)">Voir</ion-item-option>
+     
+        <ion-item-option (click)="updateCustomer(customer.num_sale,customer.name,customer.item_unit_price,customer.prix_du_g,customer.poids,customer.location_id)" style="margin-top: 35px;font-weight: bold;" color="success">Prix de vente</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+        
+  </ion-list>
+  
+</ion-list>
+
+
+<ion-list class="home-content"  *ngSwitchCase="'kittens'" >
+  
+  
+  <ion-tabs class="btntabs" style="margin-top: 5px;border-top: 3px solid teal;border-bottom: 2px solid #fcb800;width: 90%;margin-left: 5%;height: 80px;border-radius: 5px;">
+    <!-- Tab bar -->
+    <ion-tab-bar slot="bottom"  style="background-color: #fcb800;height: 70px;">
+      <ion-tab-button  style="border: 1px solid #000;"  (click)="scanAchat()" >
+        <ion-icon name="barcode" style="color: red;" ></ion-icon>
+        <ion-label style="font-weight: bold;color: rgb(37, 37, 37);">Achats Or</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button  style="border: 1px solid #000;" (click)="inventairer()">
+        <ion-icon name="calendar" style="color: green;"></ion-icon>
+        <ion-label style="font-weight: bold;color: rgb(37, 37, 37);">Inventaire</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button  style="border: 1px solid #000;" (click)="autre()">
+        <ion-icon name="qr-scanner" style="color: rgb(16, 61, 87);"></ion-icon>
+        <ion-label style="font-weight: bold;color: rgb(37, 37, 37);">Autre</ion-label>
+      </ion-tab-button>
+  
+     
+    </ion-tab-bar>
+  
+  </ion-tabs>
+
+  <ion-list style="margin-top: 100px;">
+
+      <ion-card *ngIf="nbrepiece==0"  style="background-color: #fff;margin-top: 20px;display: none;" >
+       
+      <ion-card-content>
+        <h2 style="text-align: center;color: #000;font-weight: bold;"><ion-icon name="cart" size="large"></ion-icon>  Aucun Achat en or  ?</h2> 
+      </ion-card-content>
+    </ion-card>
+   
+  </ion-list>
+  
+</ion-list>
+</div>
+<ion-button *ngIf="totalvente>0"  (click)="showAlert()" expand="block" shape="round" color="success"><ion-icon name="send"> </ion-icon> Envoyer </ion-button>
+
+</ion-content>
+
+
+<ion-footer class="footer" style="display: none;">
+  
+  <ion-grid>
+    <ion-row>
+  
+    <ion-col style="text-align: center"><ion-button *ngIf="totalvente>0"  (click)="showAlert()" expand="block" shape="round" color="success"><ion-icon name="send"> </ion-icon> Envoyer </ion-button></ion-col>
+   
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>
+<ion-footer color="primary" id="footer">
+  <ion-tab-bar slot="bottom" color="primary">
+    <ion-tab-button tab="schedule" (click)="home()">
+      <ion-icon name="wallet" aria-hidden="true" style="color: #fcb800;"></ion-icon>
+      <ion-label style="color: #fff;font-weight: bold;">Achats</ion-label>
+     
+    </ion-tab-button>
+
+    <ion-tab-button tab="speakers" (click)="presentModal()" >
+      <ion-icon style="color: #fcb800;" name="card"></ion-icon>
+      <ion-label style="color: #fff;font-weight: bold;">Ventes</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="map" (click)="inventaire()">
+      <ion-icon style="color: #fcb800;" name="pricetag" ></ion-icon>
+      <ion-label style="color: #fff;font-weight: bold;">Mon Stock</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="about"  (click)="menuAppa()" >
+      <ion-icon style="color: #fcb800;" name="mail" ></ion-icon>
+      <ion-label style="color: #fff;font-weight: bold;">Recus</ion-label>
+      <ion-badge id="text" style="color: red;font-weight: bold;font-size: 9pt;background-color: #fff;">{{totalparticipetontine}}</ion-badge>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-footer>
+<script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
+
+
+
+

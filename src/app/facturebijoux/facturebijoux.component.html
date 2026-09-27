@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Stock Par Titre</ion-title>
+    <ion-buttons slot="start" style="padding-top: 10px;">
+ 
+      
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-item lines="none">
+
+		
+    <ion-label>
+      
+        <ion-item  style="display: none;">
+        <ion-label position="floating" >  </ion-label>
+        <ion-input [(ngModel)]="codeacces"></ion-input>
+        <ion-input [(ngModel)]="item_location"></ion-input>
+      </ion-item>
+    </ion-label>
+
+    <ion-segment [(ngModel)]="pet" >
+      <ion-segment-button value="caisse" style="font-weight: bold;" checked>
+        Stock Poids
+      </ion-segment-button>
+    
+      <ion-segment-button value="puppies" style="width: auto;" style="font-weight: bold;">
+         Stock Barcode
+      </ion-segment-button>
+      
+    </ion-segment>
+</ion-item>
+
+
+
+
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  
+  <ion-list style="background-color: #fcb800;">
+   
+   
+  
+  </ion-list>
+
+
+</ion-content>
+
+<ion-footer class="footer">
+  <ion-grid>
+    <ion-row>
+      <ion-col style="text-align: center;float: right;"><ion-button (click)="dismissModal()"   expand="block" shape="round" color="danger"><ion-icon name="clipboard"> </ion-icon> Retour  </ion-button></ion-col>
+      <ion-col style="text-align: center;float: right;"><ion-button (click)="Confirmation()"   expand="block" shape="round" color="danger"><ion-icon name="check"> </ion-icon> Valider </ion-button></ion-col>
+    </ion-row>
+      </ion-grid>
+    </ion-footer>

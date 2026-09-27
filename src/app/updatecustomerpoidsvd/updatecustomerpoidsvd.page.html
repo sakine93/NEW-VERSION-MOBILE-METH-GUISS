@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Details</ion-title>
+    <ion-buttons slot="primary">
+      <ion-back-button text="Back" icon="" color="tertiary" fill="outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="slides ion-margin-bottom" style="display: none;"> 
+    <ion-slides [options]="slidesOptions">
+      <ion-slide>   
+            <ion-button>Bagues</ion-button> 
+            <ion-button color="danger">Chaines</ion-button> 
+            <ion-button color="danger">Colliers</ion-button> 
+      </ion-slide>
+      <ion-slide>   
+        <ion-button>Barcelets</ion-button> 
+        <ion-button color="danger">Pendentifs</ion-button> 
+        <ion-button color="success">Vices</ion-button> 
+  </ion-slide>
+
+
+   
+ 
+    </ion-slides>
+  </div>
+  
+  <ion-item>
+    <ion-label>REF : BIJOUX</ion-label>
+    <ion-input type="text" readonly="true"  style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000" [(ngModel)]="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>REF : Stock</ion-label>
+     <ion-input readonly="true"  style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000"  type="number" [(ngModel)]="location_id"></ion-input>
+   </ion-item>
+  <ion-item>
+    <ion-label>Poids en (g)</ion-label>
+    <ion-input placeholder="Poids en (g)"  style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000;" type="number" [(ngModel)]="poids"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Qte  ou  (p)</ion-label>
+    <ion-input placeholder="nbre de  (p)"  style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000;" type="number" [(ngModel)]="quantity"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+   
+    <ion-input (keypress)="verifprix()" style="font-weight: bold;color: #000;" placeholder="Prix total de vente" type="tel" [(ngModel)]="item_unit_price"></ion-input>
+  </ion-item>
+ 
+
+
+  <ion-item style="display: none;">
+    <ion-label position="fixed"> Prix du g  </ion-label>
+    <ion-input type="number" [(ngModel)]="prix_du_g"></ion-input>
+  </ion-item>
+
+  <h4 id="meseereur" style="color: red;font-weight: bold;text-align: center;">{{messerreur}}</h4>
+
+  <ion-button *ngIf="messerreur=='' " expand="block" padding color="tertiary" (click)="updateProsesv()" fill="outline">Valider</ion-button>
+
+</ion-content>

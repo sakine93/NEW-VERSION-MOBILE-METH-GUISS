@@ -1,0 +1,15 @@
+ion-header {
+    --background: transparent;
+    --box-shadow: none;
+  }
+  
+  ion-content .modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+  }
+  
+  

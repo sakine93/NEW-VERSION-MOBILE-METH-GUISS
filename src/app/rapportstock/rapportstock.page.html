@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mes Transferts</ion-title>
+   
+  </ion-toolbar>
+  <ion-item lines="none">
+
+		
+    <ion-label>
+      
+        <ion-item  style="display: none;">
+        <ion-label position="floating" >  </ion-label>
+        <ion-input [(ngModel)]="codeacces"></ion-input>
+        <ion-input [(ngModel)]="item_location"></ion-input>
+      </ion-item>
+    </ion-label>
+
+    <ion-segment [(ngModel)]="pet" >
+    
+      <ion-segment-button value="puppies" style="width: auto;" style="font-weight: bold;">
+        RAPPORTS DES ENTRE ET SORTIES
+      </ion-segment-button>
+      
+    </ion-segment>
+</ion-item>
+
+
+
+
+</ion-header>
+
+<ion-content padding="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div [ngSwitch]="pet">
+    <ion-list class="home-content"  *ngSwitchCase="'caisse'" >
+  <ion-list>
+    <ion-item>
+      <p>Entrees / Sorties sur {{username}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="datevente" placeholder="Cherche date"></ion-input><ion-icon name="checkmark-circle-outline" (click)="chercherdate()"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="dateventefin" placeholder="Cherche date"></ion-input><ion-icon name="checkmark-circle-outline" (click)="chercherdatefin()"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+
+  <ion-item-sliding *ngFor="let customer of customers" style="display: none;">
+      
+    <ion-item-options side="end">
+    
+      <button style="background-color: red;color: #fff;font-weight: bold;font-size: 12pt;" ion-button (click)="VoirFacture(customer.receiving_id)"> Afficher <br> Les bijoux </button>
+     
+    </ion-item-options>
+  <ion-item>
+	<ion-card   style="background-color: #fff;width: 100%;" >
+    <ion-card-header>
+      <ion-card-subtitle><b style="font-weight: bold;">Transfert du {{customer.receiving_time}} </b></ion-card-subtitle>
+      <ion-card-subtitle><b>{{customer.totalmessage | number : seperatorWitSpace}} (p) => {{customer.nbrepoidsrecu | number : seperatorWitSpace}} (g) </b></ion-card-subtitle>
+     
+      <ion-card-subtitle style="background-color: green;color: #fff;"><b>Bilal =>  {{username}} </b></ion-card-subtitle>
+      <ion-badge style="background-color: rgb(65, 219, 34);">Confirmé</ion-badge>
+    </ion-card-header>
+  
+  </ion-card>
+</ion-item>
+  </ion-item-sliding>
+
+</ion-list>
+
+<ion-list class="home-content"  *ngSwitchCase="'puppies'" >
+  <ion-list>
+    <ion-item>
+      <p>Entrees / Sorties sur {{username}}</p>
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="datevente" placeholder="Cherche date"></ion-input><ion-icon name="checkmark-circle-outline" (click)="chercherdate()"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-input type="date" [(ngModel)]="dateventefin" placeholder="Cherche date"></ion-input><ion-icon name="checkmark-circle-outline" (click)="chercherdatefin()"></ion-icon>
+    </ion-item>
+    <ion-item style="display: none;">
+      <ion-label>Choisir Stock =></ion-label>
+      <ion-select [(ngModel)]="item_locationss" (ionChange)="getValue()" value="sengold">
+        <ion-select-option value="7">La boutique</ion-select-option>
+        <ion-select-option value="34">Serigne Mbacke Seck</ion-select-option>
+        <ion-select-option value="35">Pape Seye</ion-select-option>
+        <ion-select-option value="36">Alladji Salla Niang</ion-select-option>
+        <ion-select-option value="25">Dame Diallo</ion-select-option>
+        <ion-select-option value="18">Beukheury Niass</ion-select-option>
+        <ion-select-option value="39">Issa Thiam</ion-select-option>
+        <ion-select-option value="40">Ahmeth Sy</ion-select-option>
+        <ion-select-option value="7">Saliou Niang</ion-select-option>
+        <ion-select-option value="42">Mamadou Niang</ion-select-option>
+        <ion-select-option value="43">Khadim Gueye</ion-select-option>
+        <ion-select-option value="44">Talla Seck</ion-select-option>
+           </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-item-sliding *ngFor="let customer of customers">
+      
+    <ion-item-options side="end">
+    
+      <button style="background-color: red;color: #fff;font-weight: bold;font-size: 12pt;" ion-button (click)="VoirFacture(customer.receiving_id)"> Afficher <br> Les bijoux </button>
+     
+    </ion-item-options>
+  <ion-item>
+	<ion-card   style="background-color: #fff;width: 100%;" >
+    <ion-card-header>
+      <ion-card-subtitle><b style="font-weight: bold;">Transfert du {{customer.receiving_time}} </b></ion-card-subtitle>
+      <ion-card-subtitle><b>{{customer.totalmessage | number : seperatorWitSpace}} (p) => {{customer.nbrepoidsrecu | number : seperatorWitSpace}} (g) </b></ion-card-subtitle>
+     
+      <ion-card-subtitle style="background-color: goldenrod;"><b><b *ngIf="customer.nbrepoidsrecu<0" style="background-color: red;color: #fff;">Sorties</b> <b *ngIf="customer.nbrepoidsrecu>0" style="background-color: green;color: #fff;">Entres</b>  =>  {{username}} </b></ion-card-subtitle>
+      <ion-badge style="background-color: rgb(219, 34, 34);"> <b style="font-size: 12pt;background-color: green;" *ngIf="customer.etat_actuel=='Oui'" >Confirmé</b> <b style="font-size: 12pt;" *ngIf="customer.etat_actuel=='Non'" >En Attente</b></ion-badge>
+    </ion-card-header>
+  
+  </ion-card>
+</ion-item>
+  </ion-item-sliding>
+</ion-list>
+</div>
+</ion-content>
+<ion-footer class="footer">
+  
+  <ion-grid>
+    <ion-row>
+   <ion-col style="text-align: center"><ion-button (click)="menuApp()"    expand="block" shape="round" color="danger"><ion-icon name="clipboard"> </ion-icon> RETOUR ACCEUIL </ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-footer>

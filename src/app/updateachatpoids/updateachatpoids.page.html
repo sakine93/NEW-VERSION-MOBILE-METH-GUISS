@@ -1,0 +1,325 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Details</ion-title>
+    <ion-buttons slot="primary">
+      <ion-back-button text="Back" icon="" color="tertiary" fill="outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="slides ion-margin-bottom" style="display: none;"> 
+    <ion-slides [options]="slidesOptions">
+      <ion-slide>   
+            <ion-button>Bagues</ion-button> 
+            <ion-button color="danger">Chaines</ion-button> 
+            <ion-button color="danger">Colliers</ion-button> 
+      </ion-slide>
+      <ion-slide>   
+        <ion-button>Barcelets</ion-button> 
+        <ion-button color="danger">Pendentifs</ion-button> 
+        <ion-button color="success">Vices</ion-button> 
+  </ion-slide>
+
+
+   
+ 
+    </ion-slides>
+  </div>
+  
+  <ion-item> 
+    <ion-input type="text" readonly="true"  style="background-color: rgb(175, 128, 26);font-weight: bold;color: #fff" [(ngModel)]="num_achat">Achat N0:</ion-input>
+    <ion-input readonly="true" [(ngModel)]="codeacces"></ion-input>
+  </ion-item>
+
+ 
+ 
+
+  <ion-list>
+    <ion-item-divider color="primary" style="font-weight: bold;font-size: 13pt;">
+      <ion-label>
+       Achat 18k Import
+      </ion-label>
+    </ion-item-divider>
+   
+    <ion-item>
+      <ion-input style="display: none;" [(ngModel)]="imgtest">{{imgtest}}</ion-input>
+      <ion-input style="display: none;" [(ngModel)]="imgtest2">{{imgtest2}}</ion-input>
+      <ion-input style="display: none;" [(ngModel)]="imgtest3">{{imgtest3}}</ion-input>
+      <ion-label>Poids en (g):</ion-label>
+      <ion-input style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000;" type="number" [(ngModel)]="poids18imp" placeholder="Poids en (g)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prix achat:</ion-label>
+      <ion-input (keypress)="verifprix()" style="font-weight: bold;color: #000;" type="tel" [(ngModel)]="amount18imp" placeholder="Montant Total"></ion-input>
+      
+    </ion-item>
+    <ion-item style="display: none;">
+      <ion-input readonly="true"  style="font-weight: bold;color: #000;" type="tel" [(ngModel)]="confprix18imp" placeholder="prix 18k"></ion-input>
+    </ion-item>
+    
+    <ion-item-divider color="primary" style="font-weight: bold;font-size: 13pt;">
+      <ion-label>
+       Achat 18k Loc
+      </ion-label>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label>Poids en (g):</ion-label>
+      <ion-input   style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000;" type="number" [(ngModel)]="poids18local" placeholder="Poids en  g"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prix Achat:</ion-label>
+      <ion-input (keypress)="verifprix()" style="font-weight: bold;color: #000;"  type="tel" [(ngModel)]="amount18local" placeholder="Montant Total"></ion-input>
+    </ion-item>
+    <ion-item style="display: none;">
+      <ion-input readonly="true"  style="font-weight: bold;color: #000;" type="tel" [(ngModel)]="confprix18loc" placeholder="prix 18k local"></ion-input>
+    </ion-item>
+
+   
+
+    <ion-item-divider color="primary" style="font-weight: bold;font-size: 13pt;">
+      <ion-label>
+        Achat  21k 
+      </ion-label>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label>Poids en (g):</ion-label>
+      <ion-input  placeholder="Poids en  g"   style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000;" type="number" [(ngModel)]="poids21imp"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prix Achat:</ion-label>
+      <ion-input (keypress)="verifprix()" style="font-weight: bold;color: #000;"  type="tel" [(ngModel)]="amount21imp"></ion-input>
+    </ion-item>
+    <ion-item style="display: none;">
+      <ion-input readonly="true"  style="font-weight: bold;color: #000;" type="tel" [(ngModel)]="confprix21k" placeholder="prix 21k "></ion-input>
+    </ion-item>
+
+    <ion-item-divider color="primary" style="font-weight: bold;font-size: 13pt;">
+      <ion-label>
+        Achat 22k 
+      </ion-label>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label>Poids en (g):</ion-label>
+      <ion-input  placeholder="Poids en  g" style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000;" type="number" [(ngModel)]="poids22imp"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prix Achat:</ion-label>
+      <ion-input (keypress)="verifprix()" style="font-weight: bold;color: #000;"  type="tel" [(ngModel)]="amount22imp"></ion-input>
+    </ion-item>
+    <ion-item style="display: none;">
+      <ion-input readonly="true"  style="font-weight: bold;color: #000;" type="tel" [(ngModel)]="confprix22k" placeholder="prix 22k "></ion-input>
+    </ion-item>
+
+    <ion-item-divider color="primary" style="font-weight: bold;font-size: 13pt;">
+      <ion-label>
+        Achat Argent
+      </ion-label>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label>Poids en (g):</ion-label>
+      <ion-input  placeholder="Poids en  g"  style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000;" type="number" [(ngModel)]="poidsargent"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prix Achat:</ion-label>
+      <ion-input (keypress)="verifprix()" style="font-weight: bold;color: #000;"  type="tel" [(ngModel)]="amountargent1"></ion-input>
+    </ion-item>
+    <ion-item style="display: none;">
+      <ion-input readonly="true"  style="font-weight: bold;color: #000;" type="tel" [(ngModel)]="confprixargent" placeholder="prix Argent "></ion-input>
+    </ion-item>
+
+
+    <ion-item-divider color="primary" style="font-weight: bold;font-size: 13pt;">
+      <ion-label>
+        Achat Autre
+      </ion-label>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label>Poids en (g):</ion-label>
+      <ion-input  placeholder="Poids en  g" style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000;" type="number" [(ngModel)]="poidsargentor"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prix Achat :</ion-label>
+      <ion-input (keypress)="verifprix()" style="font-weight: bold;color: #000;" placeholder="Prix total Achat" type="tel" [(ngModel)]="amountargentorr"></ion-input>
+    </ion-item>
+    <ion-item style="display: none;">
+      <ion-input readonly="true"  style="font-weight: bold;color: #000;" type="tel" [(ngModel)]="confprixautre" placeholder="prix autre "></ion-input>
+    </ion-item>
+
+    <ion-item-divider color="primary" style="font-weight: bold;font-size: 13pt;">
+      <ion-label>
+       Achat 18k brute 
+      </ion-label>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label>Poids en (g):</ion-label>
+      <ion-input  placeholder="Poids en  g"  style="background-color: rgb(245, 245, 245);font-weight: bold;color: #000;" type="number" [(ngModel)]="poids14local"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Prix Achat :</ion-label>
+      <ion-input (keypress)="verifprix()" style="font-weight: bold;color: #000;"  type="tel" [(ngModel)]="amount14local"></ion-input>
+    </ion-item>
+    <ion-item style="display: none;">
+      <ion-input readonly="true"  style="font-weight: bold;color: #000;" type="tel" [(ngModel)]="confprix18brute" placeholder="prix 14k "></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-item style="display: none;">
+    <ion-label position="fixed"> Prix du g  </ion-label>
+    <ion-input  placeholder="Poids en  g" type="number" [(ngModel)]="prix_du_g"></ion-input>
+  </ion-item>
+
+  
+
+  
+  
+    
+  <ion-toolbar>
+   
+          <ion-card>
+            <ion-card-header style="background-color: #fcb800;font-weight: bold;" (click)="selectImage()">
+              <ion-icon name="camera"  size="small"></ion-icon>  PRENDRE UNE PHOTO  DE L'ACHAT
+            </ion-card-header>
+            <ion-card-content>
+            
+        <h3  style="text-align: center;margin-top: 20px;" *ngIf="images.length === 0"> <ion-icon size="large" slot="icon-only" name="cloud-upload"></ion-icon> Choisir une photo par la camera</h3>
+   
+              <ion-list>
+               
+                  <ion-item *ngFor="let img of images; index as pos ">
+                    
+                
+                      <img  [src]="img.path" style="width: 150px;height: 150px;">
+                   
+                    <div>
+                      <ion-button slot="end"  (click)="startUpload(img)" #select1>
+                        <ion-icon size="large" slot="icon-only" name="cloud-upload"></ion-icon>
+                        Valider Photo
+                      </ion-button>
+
+                      <ion-button slot="end" fill="clear" (click)="deleteImage(img, pos)">
+                        <ion-icon  size="large" slot="icon-only" name="trash"></ion-icon>
+                      </ion-button>
+                    </div> <br>
+                  
+
+                    
+              
+                  </ion-item>
+                </ion-list>
+            </ion-card-content>
+          
+        </ion-card> 
+
+
+        <ion-card>
+          <ion-card-header style="background-color: #fcb800;font-weight: bold;" (click)="selectImage2()">
+            <ion-icon name="camera"  size="small"></ion-icon>PRENDRE  PHOTO D'IDENTITE RECTO
+          </ion-card-header>
+          <ion-card-content  >
+           <h3 *ngIf="imagess.length === 0"  style="text-align: center;margin-top: 20px;" >  <ion-icon size="large" slot="icon-only" name="cloud-upload"></ion-icon> Choisir une photo recto de la piece didentité</h3>
+            <ion-list>
+             
+              <ion-item *ngFor="let imgg of imagess; index as poss ">
+                    
+                
+                <img  [src]="imgg.path2" style="width: 150px;height: 150px;">
+             
+              <div>
+                <ion-button slot="end"  (click)="startUpload2(imgg)">
+                  <ion-icon  size="large" slot="icon-only" name="cloud-upload"></ion-icon>
+                  Valider Photo
+                </ion-button>
+
+                <ion-button slot="end" fill="clear" (click)="deleteImage2(imgg, poss)">
+                  <ion-icon  size="large" slot="icon-only" name="trash"></ion-icon>
+                </ion-button>
+              </div> <br>
+           
+
+              
+           
+
+        
+        
+            </ion-item>
+              </ion-list>
+          </ion-card-content>
+        
+      </ion-card> 
+
+      <ion-card >
+        <ion-card-header style="background-color: #fcb800;font-weight: bold;" (click)="selectImage3()">
+          <ion-icon name="camera"  size="small"></ion-icon> PRENDRE PHOTO D'IDENTITE VERSO
+        </ion-card-header>
+        <ion-card-content  >
+         <h3 *ngIf="imagesss.length === 0"   style="text-align: center;margin-top: 20px;" ><ion-icon size="large" slot="icon-only" name="cloud-upload"></ion-icon> Choisir une photo verso de la piece didentité </h3>
+          <ion-list>
+           
+            <ion-item *ngFor="let imggg of imagesss; index as posss ">
+                  
+              
+              <img  [src]="imggg.path3" style="width: 150px;height: 150px;">
+           
+            <div>
+
+              <ion-button slot="end"  (click)="startUpload3(imggg)">
+                <ion-icon size="large"  slot="icon-only" name="cloud-upload"></ion-icon>
+                Valider Photo
+              </ion-button>
+
+              <ion-button slot="end" fill="clear" (click)="deleteImage3(imggg, posss)">
+                <ion-icon  size="large" slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+            </div> <br>
+         
+
+            
+         
+
+      
+      
+          </ion-item>
+            </ion-list>
+        </ion-card-content>
+      
+      
+    </ion-card> 
+
+
+  </ion-toolbar>
+  
+</ion-content>
+
+<ion-footer class="footer">
+  
+  <ion-grid>
+    
+    <ion-row>
+      <ion-col>
+      
+      </ion-col>
+      <ion-col style="text-align: center;float: right;"><ion-button (click)="dismissModala()"   expand="block" shape="round" color="danger"><ion-icon name="clipboard"> </ion-icon> Retour  </ion-button></ion-col>
+      <ion-col style="text-align: center;float: right;"><ion-button (click)="verifprix18k()"   expand="block" shape="round" color="danger"><ion-icon name="clipboard"> </ion-icon> Envoyer Caisse </ion-button></ion-col>
+     
+      
+    </ion-row>
+      </ion-grid>
+
+     
+    </ion-footer>
